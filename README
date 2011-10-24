@@ -3,6 +3,6 @@ Este proyecto trata de traducir toda la documentación oficial de Go
 lenguaje, que incluirá un manual.
 
 - rcostu: Está traduciendo la documentación exitente en doc/. Se está realizando
-  en orden y el último fichero modificado es debugging_with_gdb.html
+  en orden y el último fichero modificado es docs.html
 
 - hambit: Está traduciendo el sistema de go-tour/.
