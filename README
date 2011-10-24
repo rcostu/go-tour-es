@@ -1,0 +1,8 @@
+Este proyecto trata de traducir toda la documentación oficial de Go
+(http://golang.org) al español, para formar una comunidad de desarrollo en dicho
+lenguaje, que incluirá un manual.
+
+- rcostu: Está traduciendo la documentación exitente en doc/. Se está realizando
+  en orden y el último fichero modificado es debugging_with_gdb.html
+
+- hambit: Está traduciendo el sistema de go-tour/.

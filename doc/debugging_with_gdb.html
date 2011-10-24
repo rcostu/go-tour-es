@@ -213,28 +213,29 @@ Saca una lista con un fichero específico y una línea concreta:
 <h3 id="Naming">Nombrado</h3>
 
 <p>
-
-Variable and function names must be qualified with the name of the packages
-they belong to. The <code>Compile</code> function from the <code>regexp</code>
-package is known to GDB as <code>'regexp.Compile'</code>. 
+Los nombres de variables y funciones deben estar de forma calificada con el
+nombre del paquete al que pertenecen. La función <code>Compile</code>  del
+paquete <code>regexp</code> se interpreta en GDB como <code>'regexp.Compile'</code>. 
 </p>
 
 <p>
-Methods must be qualified with the name of their receiver types. For example,
-the <code>*Regexp</code> type’s <code>doParse</code> method is known as
-<code>'regexp.*Regexp.doParse'</code>. (Note that the second dot is a "middot,"
-an artifact of Go’s internal representation of methods.)
+Los métodos deben estar calificados con el nombre de sus tipos receptores. Por
+ejemplo, el método <code>doParse</code> del tipo <code>*Regexp</code> se
+interpreta como <code>'regexp.*Regexp.doParse'</code>. (Nótese que el segundo
+punto es un método de representación interna de métodos de Go.)
 </p>
 
 <p>
-Variables that shadow other variables are magically suffixed with a number in the debug info.
-Variables referenced by closures will appear as pointers magically prefixed with '&amp'.
+Las variables que encapsulan otras variables introducen un sufijo con un número
+en la información de debug.
+Las variables referenciadas por funciones anónimas aparecerán como punteros con
+'&amp' como prefijo.
 </p>
 
-<h3 id="Setting_breakpoints">Setting breakpoints</h3>
+<h3 id="Setting_breakpoints">Poniendo puntos de ruptura</h3>
 
 <p>
-Set a breakpoint at the <code>TestFind</code> function:
+Poniendo un punto de ruptura en la función <code>TestFind</code>:
 </p>
 
 <pre>
@@ -243,7 +244,7 @@ Breakpoint 1 at 0x424908: file /home/user/go/src/pkg/regexp/find_test.go, line 1
 </pre>
 
 <p>
-Run the program:
+Ejecutando el programa:
 </p>
 
 <pre>
@@ -255,8 +256,8 @@ Breakpoint 1, regexp.TestFind (t=0xf8404a89c0) at /home/user/go/src/pkg/regexp/f
 </pre>
 
 <p>
-Execution has paused at the breakpoint.
-See which goroutines are running, and what they're doing:
+La ejecución se ha pausado en el punto de ruptura.
+Mira qué goroutines están ejecutando y qué es lo que hacen:
 </p>
 
 <pre>
@@ -266,13 +267,13 @@ See which goroutines are running, and what they're doing:
 </pre>
 
 <p>
-the one marked with the <code>*</code> is the current goroutine.
+la que está marcada con <code>*</code> es la goroutine actual.
 </p>
 
-<h3 id="Inspecting_the_stack">Inspecting the stack</h3>
+<h3 id="Inspecting_the_stack">Inspeccionando la pila</h3>
 
 <p>
-Look at the stack trace for where we’ve paused the program:
+Mira en la traza de la pila para inspeccionar dónde se ha pausado el programa:
 </p>
 
 <pre>
@@ -286,7 +287,8 @@ Look at the stack trace for where we’ve paused the program:
 </pre>
 
 <p>
-The other goroutine, number 1, is stuck in <code>runtime.gosched</code>, blocked on a channel receive:
+La otra goroutine, la número 1, está parada en <code>runtime.gosched</code>,
+bloqueada en una recepción en un canal:
 </p>
 
 <pre>
@@ -305,7 +307,8 @@ The other goroutine, number 1, is stuck in <code>runtime.gosched</code>, blocked
 </pre>
 
 <p>
-The stack frame shows we’re currently executing the <code>regexp.TestFind</code> function, as expected.
+El marco de pila muestra que estamos ejecutando la función
+<code>regexp.TestFind</code>, tal y como se esperaba.
 </p>
 
 <pre>
@@ -322,13 +325,14 @@ Stack level 0, frame at 0x7ffff7f9ff88:
 </pre>
 
 <p>
-The command <code>info locals</code> lists all variables local to the function and their values, but is a bit
-dangerous to use, since it will also try to print uninitialized variables. Uninitialized slices may cause gdb to try
-to print arbitrary large arrays.
+El comando <code>info locals</code> muestra todas las variables locales a la
+función y sus valores, pero es un poco peligroso de usar, dado que intentará
+imprimir también variables no inicializadas. Los slices no inicializados pueden
+causar que gdb imrpima arrays arbitrariamente.
 </p>
 
 <p>
-The function’s arguments:
+Los argumentos de la función:
 </p>
 
 <pre>
@@ -337,9 +341,9 @@ t = 0xf840688b60
 </pre>
 
 <p>
-When printing the argument, notice that it’s a pointer to a
-<code>Regexp</code> value. Note that GDB has incorrectly put the <code>*</code>
-on the right-hand side of the type name and made up a 'struct' keyword, in traditional C style.
+Cuando imprimimos el argumento, nótese que es un puntero a un valor
+<code>Regexp</code>. GDB ha puesto incorrectamente el <code>*</code> en el lado
+derecho del nombre del tipo y ha creado una palabra 'struct', como en C.
 </p>
 
 <pre>
@@ -355,11 +359,13 @@ $3 = struct hchan<*testing.T>
 </pre>
 
 <p>
-That <code>struct hchan<*testing.T></code> is the runtime-internal represntation of a channel.  It is currently empty, or gdb would have pretty-printed it's contents.
+Esa estructura <code>struct hchan<*testing.T></code> es la representación
+interna de un canal. Actualmente está vacío, o gdb hubiera imprimido su
+contenido.
 </p>
 
 <p>
-Stepping forward:
+Ejecutando paso por paso:
 </p>
 
 <pre>
@@ -383,7 +389,7 @@ $7 = {Inst =  []regexp/syntax.Inst = {{Op = 5 '\005', Out = 0, Arg = 0, Rune =  
 
 
 <p>
-We can step into the <code>String</code>function call with <code>"s"</code>:
+Podemos ejecutar el siguiente paso a la función <code>String</code> con <code>"s"</code>:
 </p>
 
 <pre>
@@ -393,7 +399,7 @@ regexp.(*Regexp).String (re=0xf84068d070, noname=void) at /home/lvd/g/src/pkg/re
 </pre>
 
 <p>
-Get a stack trace to see where we are:
+Imprimiendo una traza de la pila para ver dónde estamos:
 </p>
 
 <pre>
@@ -410,7 +416,7 @@ Get a stack trace to see where we are:
 </pre>
 
 <p>
-Look at the source code:
+Viendo el código fuente:
 </p>
 
 <pre>
@@ -427,10 +433,11 @@ Look at the source code:
 101     // Compile parses a regular expression and returns, if successful,
 </pre>
 
-<h3 id="Pretty_Printing">Pretty Printing</h3>
+<h3 id="Pretty_Printing">Imprimiendo</h3>
 
 <p>
-GDB's pretty printing mechanism is triggered by regexp matches on type names.  An example for slices:
+El mecanismo de impresión de GDB se ejecuta sobre expresiones regulares en
+nombres de tipos. Un ejemplo para slices:
 </p>
 
 <pre>
@@ -439,8 +446,10 @@ $22 =  []uint8 = {0 '\000', 0 '\000', 0 '\000', 0 '\000'}
 </pre>
 
 <p>
-Since slices, arrays and strings are not C pointers, GDB can't interpret the subscripting operation for you, but
-you can look inside the runtime representation to do that (tab completion helps here):
+Dado que los slices, arrays y strings no son punteros de C, GDB no puede
+interpretar la operación automáticamente, pero puede mirar dentro de la
+representación interna del runtime para hacerlo (el autocompletado con el
+tabulador ayuda):
 </p>
 <pre>
 
@@ -456,7 +465,7 @@ $13 = 0</pre>
 
 
 <p>
-The extension functions $len and $cap work on strings, arrays and slices:
+Las funciones de la extensión $len y $cap funcionan en strings, arrays y slices:
 </p>
 
 <pre>
@@ -467,11 +476,18 @@ $24 = 4
 </pre>
 
 <p>
-Channels and maps are 'reference' types, which gdb shows as pointers to C++-like types <code>hash&ltint,string&gt*</code>.  Dereferencing will trigger prettyprinting
+Los canales y maps son tipos de 'referencia', que gdb muestra como punteros
+a tipos como tipos C++ <code>hash&ltint,string&gt*</code>. Derreferenciando
+imprimirá los mensajes correctamente.
 </p>
 
 <p>
-Interfaces are represented in the runtime as a pointer to a type descriptor and a pointer to a value.  The Go GDB runtime extension decodes this and automatically triggers pretty printing for the runtime type.  The extension function <code>$dtype</code> decodes the dynamic type for you (examples are taken from a breakpoint at <code>regexp.go</code> line 293.)
+Los interfaces son representados en el runtime como un puntero a un descriptor
+de tipo y un puntero a valor. La extensión del runtime de Go para GDB decodifica
+esto y automáticamente lanza la impresión correcta para el tipo. La función de
+la extensión <code>$dtype</code> decodifica el tipo dinámicamente para tí (los
+ejemplos están cogidos de un punto de ruptura de <code>regexp.go</code> en la
+línea 293.)
 </p>
 
 <pre>
