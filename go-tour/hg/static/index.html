@@ -81,43 +81,46 @@ func main() {
 <div class="slide nocode appengineMode">
 	<h2>Go offline</h2>
 	<p>
-	This tour is also available as a stand-alone program that you can use
-	without access to the internet.
+	Este tour está disponible también como un programa independiente que puedes
+	usar sin acceder a internet.
 	<p>
-	The stand-alone tour is faster, as it builds and runs the code samples
-	on your own machine. It also includes additional exercises not
-	available in this sandboxed version.
+	Este programa es rápido, ya que compila y ejecuta el código de los ejemplos
+	en tu propio ordenador. También incluye ejercicos adicionales que no se
+	encuentran disponibles en la versión online.
 	<p>
-	To run the tour locally first
-	<a target="_blank" href="http://golang.org/doc/install.html">install Go</a> (the latest stable release, <code>release.r60.1</code>),
-	then use
+	Para ejecutar el tour localmente primero debes
+	<a target="_blank" href="http://golang.org/doc/install.html">instalar Go</a>
+	(la ultima versión estable, <code>release.r60.3</code>),
+	a continuación
 	<a target="_blank" href="http://golang.org/cmd/goinstall/">goinstall</a>
-	to install
+	para instalar
 	<a target="_blank" href="http://code.google.com/p/go-tour/">gotour</a>:
 	<pre>    goinstall go-tour.googlecode.com/hg/gotour</pre>
 	<p>
-	and run the resultant <code>gotour</code> executable.
+	y ejecuta el fichero <code>gotour</code>.
 	<p>
-	Otherwise, click the "next" button or type PageDown to continue.
+	De lo contrario, haz click en "siguiente" o presiona la tecla
+	PageDown para continuar.
 	<p>
-	<i>(You may return to these instructions at any time by clicking the
-	"index" button.)</i>
+	<i>
+		(Puedes volver a estas instrucciones en cualquier momento haciendo click
+		en "índice".)</i>
 </div>
 
-<div class="toc">Introduction</div>
+<div class="toc">Introducción</div>
 
 <div class="slide">
-	<h2>Packages</h2>
+	<h2>Paquetes</h2>
 	<p>
-	Every Go program is made up of packages.
+	Todo programa en Go contiene paquetes.
 	<p>
-	Programs start running in package <code>main</code>.
+	Los programas comienzan su ejecución en el paquete <code>main</code>.
 	<p>
-	This program is using the packages with import paths
-	<code>"fmt"</code> and <code>"math"</code>.
+	Este programa usa los paquetes con rutas de importación
+	<code>"fmt"</code> y <code>"math"</code>.
 	<p>
-	By convention, the package name is the same as the
-	last element of the import path.
+	Por convención, el nombre del paquete es el mismo que el último elemento de
+	la ruta de importación.
 <div>
 package main
 
