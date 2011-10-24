@@ -26,7 +26,7 @@ import (
 	_ "go-tour.googlecode.com/hg/wc"
 )
 
-const basePkg = "go-tour.googlecode.com/hg"
+const basePkg = "/Users/roberto/Proyectos/Golang-spanish-documentation/go-tour/hg/"
 
 var (
 	httpListen = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
@@ -60,11 +60,13 @@ func main() {
 	}
 
 	// find and serve the go tour files
-	t, _, err := build.FindTree(basePkg)
+	/*t, _, err := build.FindTree(basePkg)
 	if err != nil {
 		log.Fatalf("Couldn't find tour files: %v", err)
 	}
 	root := filepath.Join(t.SrcDir(), basePkg)
+	*/
+	root := basePkg
 	log.Println("Serving content from", root)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/favicon.ico" || r.URL.Path == "/" {
@@ -78,7 +80,8 @@ func main() {
 	http.HandleFunc("/kill", kill)
 
 	// set include path for ld and gc
-	pkgDir = t.PkgDir()
+	//ORIGINAL -> pkgDir = t.PkgDir()
+	pkgDir = basePkg
 
 	if !strings.HasPrefix(*httpListen, "127.0.0.1") &&
 		!strings.HasPrefix(*httpListen, "localhost") {
