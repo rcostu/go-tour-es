@@ -26,7 +26,7 @@ import (
 	_ "go-tour.googlecode.com/hg/wc"
 )
 
-const basePkg = "/Users/roberto/Proyectos/Golang-spanish-documentation/go-tour/hg/"
+const basePkg = "/home/nano/Documentos/manuales/Golang-spanish-documentation/go-tour/hg/"
 
 var (
 	httpListen = flag.String("http", "127.0.0.1:3999", "host:port to listen on")

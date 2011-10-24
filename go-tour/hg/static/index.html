@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<title>A Tour of Go</title>
+<title>Un tour por Go</title>
 
 <!-- jQuery -->
 <script src="static/jquery.js"></script>
@@ -130,21 +130,22 @@ import (
 )
 
 func main() {
-	fmt.Println("Happy", math.Pi, "Day")
+	fmt.Println("Feliz día", math.Pi)
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Imports</h2>
+	<h2>Importación</h2>
 	<p>
-	This code groups the imports into a parenthesized, "factored" import
-	statement.  You can also write multiple import statements, like:
+	Éste código agrupa las importaciones entre parentesis de forma
+	"factorizada". Tambien puedes realizar multiples importaciones de la
+	siguiente forma:
 	<pre>
 	import "fmt"
 	import "math"
 	</pre>
-	but it's common to use the factored form to eliminate clutter.
+	pero es común usar la forma factorizada para eliminar código inecesario.
 <div>
 package main
 
@@ -154,24 +155,25 @@ import (
 )
 
 func main() {
-	fmt.Printf("Now you have %g problems.",
+	fmt.Printf("Ahora tienes %g problemas.",
 		math.Nextafter(2, 3))
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Exported names</h2>
+	<h2>Identificadores exportados</h2>
 	<p>
-	After importing a package, you can refer to the names it exports.
+	Tras importar un paquete, puedes hacer referencia a los identificadores que
+	exporta.
 	<p>
-	In Go, a name is exported if it begins with a capital letter.
+	En Go, un identificador es exportado si empieza por una mayuscula.
 	<p>
-	<code>Pi</code> is an exported name, as is <code>PI</code>.
-	The name <code>pi</code> is not exported.
+	<code>Pi</code> es un identificador exportado, al igual que <code>PI</code>.
+	El identificador <code>pi</code> no es exportado.
 	<p>
-	Run the code. Then rename <code>math.pi</code> to <code>math.Pi</code>
-	and try it again.
+	Ejecuta el código. Después sustituye <code>math.pi</code> por <code>math.Pi</code>
+	e intentalo de nuevo.
 <div>
 package main
 
@@ -187,15 +189,18 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Funciones</h2>
 	<p>
-	A function can take zero or more arguments.
+	Una función puede tener cero o más argumentos.
 	<p>
-	In this example, <code>add</code> takes two parameters of type <code>int</code>.
+	En este ejemplo, <code>add</code> posee dos parámetros de tipo <code>int</code>.
 	<p>
-	Notice that the type comes <i>after</i> the variable name.
+	Observa que el tipo de indica <i>después</i> del nombre de la variable.
 	<p>
-	(For more about why types look the way they do, see <a target="_blank" href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">this blog post</a>.)
+	Para más información acerca de porqué los tipos se miestran así, echale un
+	vistazo a <a target="_blank"
+		href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">esta
+		entrada(en)</a>.)
 <div>
 package main
 
@@ -212,15 +217,15 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Funciones</h2>
 	<p>
-	When two or more consecutive named function parameters share a type,
-	you can omit the type from all but the last.
+	Cuando dos o más prametros consecutivos de la función son del mismo tipo,
+	puedes omitir el tipo de todos menos del último.
 	<p>
-	In this example, we shortened
+	En el ejemplo, acortamos
 	<pre>x int, y int</pre>
 	<p>
-	to
+	a
 	<pre>x, y int</pre>
 <div>
 package main
@@ -240,9 +245,9 @@ func main() {
 <div class="slide">
 	<h2>Functions</h2>
 	<p>
-	A function can return any number of results.
+	Una función puede devolver varios resultados.
 	<p>
-	This function returns two strings.
+	Esta función devuelve dos cadenas.
 <div>
 package main
 
@@ -260,12 +265,15 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Funciones</h2>
 	<p>
+	Las funciones tienen parametros; en Go los resultados pueden ser nombrados
+	y actuar como variables; se les denomina "variables de retorno"
 	Functions take parameters; in Go results can be named and act like
 	variables; these are called "result parameters."
 	<p>
-	If the result parameters are named, a <code>return</code> statement
+	Si las variables de retorno tienen un nombre, una sentencia <code>return</code>
+	sin argumentos devuelve el valor actual de dichas variables.
 	without arguments returns the current values of the results.
 <div>
 package main
