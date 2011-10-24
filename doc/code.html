@@ -1,0 +1,371 @@
+<!-- How to Write Go Code -->
+
+<h2 id="Introduction">Introducci&oacute;n</h2>
+
+<p>
+Este documento explica c&oacute;mo escribir un nuevo paquete y como realizar casos de
+prueba.
+Este tutorial asume que se ha instalado Go usando las
+<a href="install.html">instrucciones de instalaci&oacute;n</a>.
+</p>
+
+<p>
+Antes de iniciar un cambio en un paquete existente o en la creaci&oacute;n de un nuevo
+paquete, aseg&uacute;rate de mandar un e.mail a la
+<a href="http://groups.google.com/group/golang-nuts">lista de correo (en ingl&eacute;s)</a>
+para que la gente sepa qu&eacute; est&aacute;s pensando hacer.
+Esta forma de trabajar evita esfuerzos innecesarios y permite un debate abierto
+sobre el dise&ntilde;o antes de que el c&oacute;digo sea escrito.
+</p>
+
+<h2 id="Community_resources">Recursos de la comunidad (en ingl&eacute;s)</h2>
+
+<p>
+Para ayuda en tiempo real, suele haber usuarios y desarrolladores en el canal
+<code>#go-nuts</code> en los servidores IRC de <a href="http://freenode.net/">Freenode</a>.
+</p>
+
+<p>
+La lista de correo oficial para los debates sobre Go es
+<a href="http://groups.google.com/group/golang-nuts">Go Nuts</a>.
+</p>
+
+<p>
+Los fallos (bugs), pueden ser reportados usando el <a
+	href="http://code.google.com/p/go/issues/list">sistema de gesti&oacute;n de errores
+de Go</a>.
+</p>
+
+<p>
+Para aquellos que quieran estar al d&iacute;a en el desarrollo del lenguaje, existe
+otra lista de correo, <a href="http://groups.google.com/group/golang-checkins">golang-checkins</a>,
+que env&iacute;a un mensaje resumiendo cada cambio del repositorio de Go.
+</p>
+
+
+<h2 id="New_package">Creando un nuevo paquete</h2>
+
+<p>
+El c&oacute;digo fuente de un paquete con una ruta de importaci&oacute;n
+<code>x/y</code> es, por convenci&oacute;n, almacenado en el directorio <code>$GOROOT/src/pkg/x/y</code>.
+</p>
+
+<h3>Makefile</h3>
+
+<p>
+Ser&iacute;a estupendo tener herramientas espec&iacute;ficas para Go que inspeccionaran los
+ficheros fuente para determinar qu&eacute; construir y en qu&eacute; orden debe realizarse,
+pero por ahora Go utiliza GNU <code>make</code>.
+Por lo tanto, el primer fichero a crear en un nuevo directorio para generar un
+paquete es, normalmente, el <code>Makefile</code>.
+Se puede ver un ejemplo en el c&oacute;digo fuente de Go en <a href="../src/pkg/container/vector/Makefile"><code>src/pkg/container/vector/Makefile</code></a>:
+</p>
+
+<pre>
+include ../../../Make.inc
+
+TARG=container/vector
+GOFILES=\
+	intvector.go\
+	stringvector.go\
+	vector.go\
+
+include ../../../Make.pkg
+</pre>
+
+<p>
+Fuera del c&oacute;digo fuente del lenguaje (para paquetes personales), la forma
+est&aacute;ndar es:
+</p>
+
+<pre>
+include $(GOROOT)/src/Make.inc
+
+TARG=mypackage
+GOFILES=\
+	my1.go\
+	my2.go\
+
+include $(GOROOT)/src/Make.pkg
+</pre>
+
+<p>
+La primera y &uacute;ltima l&iacute;neas incluyen definiciones y reglas est&aacute;ndar.
+Los paquetes mantenidos en el directorio est&aacute;ndar de Go, utilizan rutas
+relativas (en lugar de <code>$(GOROOT)/src</code>) de forma que
+<code>make</code> funcione correctamente incluso si <code>$(GOROOT)</code> posee
+espacios.
+Esto permite que sea m&aacute;s facil para los programadores probar Go.
+</p>
+
+<p>
+Si no se ha inicializado la variable global <code>$GOROOT</code> en el entorno,
+debes ejecutar <code>gomake</code> para utilizar este tipo de makefile.
+<code>Gomake</code> tambi&eacute;n se encarga de ejecutar GNU Make incluso en sistemas
+en los que est&aacute; instalado bajo el nombre de <code>gmake</code> en lugar de <code>make</code>.
+</p>
+
+<p>
+<code>TARG</code> es la ruta de instalaci&oacute;n del paquete, una cadena de
+caracteres que los usuarios utilizar&aacute;n para importar el paquete.
+Dentro del &aacute;rbol de directorios de Go, esta cadena deber&iacute;a ser la misma que el
+directorio en el que el <code>Makefile</code> se encuentre, pero con el
+<code>$GOROOT/src/pkg/</code> eliminado.
+Fuera del &aacute;rbol de directorios de Go, puedes utilizar el <code>TARG</code> que
+quieras siempre que no entre en conflicto con ninguno de los nombres de los
+paquetes est&aacute;ndar de Go.
+Una convenci&oacute;n bastante usual es utilizar un nombre gen&eacute;rico para agrupar tus
+paquetes: <code>minombre/&aacute;rbol</code>, <code>minombre/filtro</code>, etc.
+N&oacute;tese que incluso si mantienes tu paquete fuera del directorio de Go, al
+ejecutar <code>make install</code> instalar&aacute; los ejecutables generados por el
+paquete en su directorio est&aacute;ndar&mdash;<code>$GOROOT/pkg</code>&mdash;para que
+sea m&aacute;s f&aacute;cil encontrarlos.
+</p>
+
+<p>
+<code>GOFILES</code> es una lista de ficheros fuente que se van a compilar para
+crear el paquete. La barra invertida <code>\</code> al final de cada l&iacute;nea,
+permite separar la lista en m&uacute;ltiples l&iacute;neas para una mejor lectura.
+</p>
+
+<p>
+Si creas un directorio de paquete en el directorio de Go, a&ntilde;&aacute;delo a la lista en
+<code>$GOROOT/src/pkg/Makefile</code> de forma que sea inclu&iacute;do en la versi&oacute;n
+est&aacute;ndar. Despu&eacute;s ejecuta:
+<pre>
+cd $GOROOT/src/pkg
+./deps.bash
+</pre>
+<p>
+para actualizar el fichero de dependencia <code>Make.deps</code>.
+(Esto ocurre autom&aacute;ticamente cada vez que ejecutes <code>all.bash</code>
+o <code>make.bash</code>.)
+</p>
+
+<p>
+Si cambias la importaci&oacute;n de un paquete existente, no necesitas editar el
+fichero <code>$GOROOT/src/pkg/Makefile</code> pero s&iacute; que deber&aacute;s ejecutar <code>deps.bash</code>.
+</p>
+
+
+<h3>Los ficheros fuente de Go</h3>
+
+<p>
+La primera sentencia en cada uno de los ficheros fuente listados en el <code>Makefile</code>
+deber&iacute;a ser <code>package <i>nombre</i></code>, donde <code><i>nombre</i></code>
+es el nombre del paquete por defecto utilizado para su importaci&oacute;n.
+(Todos los ficheros en un paquete deben de utilizar el mismo <code><i>nombre</i></code>.)
+La convenci&oacute;n de Go es que el nombre es el &uacute;ltimo elemento de la ruta de
+importaci&oacute;n: un paquete importado como <code>"crypto/rot13"</code> deber&iacute;a
+llamarse <code>rot13</code>.
+No existe ning&uacute;n requisito para que un nombre de un paquete sea &uacute;nico entre
+todos los paquetes enlazados en un &uacute;nico fichero ejecutable, s&oacute;lo que las rutas
+de importaci&oacute;n (sus nombres completos) sean &uacute;nicos.
+</p>
+
+<p>
+Go compila todos los ficheros fuente de un paquete a la vez, de forma que un
+fichero puede referirse a constantes, variables, tipos y funciones en otro
+fichero sin necesidad de utilizar un orden o declaraciones espec&iacute;ficas.
+</p>
+
+<p>
+C&oacute;mo escribir un c&oacute;digo limpio e idiom&aacute;tico en Go est&aacute; fuera del alcance de este
+documento.
+<a href="effective_go.html">Effective Go</a> es una introducci&oacute;n a este tema.
+</p>
+
+<h2 id="Building_programs">Construyendo programas</h2>
+<p>Para construir un programa con gomake, crea un fichero Makefile junto con los
+ficheros fuente de tu programa. Deber&iacute;a ser similar al ejemplo visto
+anteriormente, pero incluye <code>Make.cmd</code> en lugar de <code>Make.pkg</code>:
+
+<pre>
+include $(GOROOT)/src/Make.inc
+
+TARG=holamundo
+GOFILES=\
+	holamundo.go\
+
+include $(GOROOT)/src/Make.cmd
+</pre>
+
+<p>Ejecutando <code>gomake</code> compilar&aacute; <code>holamundo.go</code>
+y generar&aacute; un ejecutable llamado <code>holamundo</code> en el directorio actual.
+</p>
+
+<p>
+Ejecutando <code>gomake install</code> generar&aacute; <code>holamundo</code> si es
+necesario y lo copiar&aacute; en el directorio apuntado por la variable de entorno <code>$GOBIN</code>
+(<code>$GOROOT/bin/</code> es la ruta por defecto).
+</p>
+
+<h2 id="Testing">Probando el c&oacute;digo</h2>
+
+<p>
+Go posee un framework ligero de testing conocido como <code>gotest</code>.
+Escribes un test creando un fichero con un nombre terminado en
+<code>_test.go</code> que contiene funciones con el nombre <code>TestXXX</code>
+con una firma del tipo <code>func (t *testing.T)</code>.
+El framework ejecuta cada una de estas funciones; Si la funci&oacute;n llama a una
+funci&oacute;n de error como <code>t.Error</code> o <code>t.Fail</code>, el test est&aacute;
+considerado como err&oacute;neo y por lo tanto, ha fallado.
+La <a href="/cmd/gotest/">documentaci&oacute;n del comando gotest</a>
+y la <a href="/pkg/testing/">documentaci&oacute;n del paquete testing</a> otorgan un
+mayor nivel de detalle.
+</p>
+
+<p>
+Los archivos <code>*_test.go</code> no deber&iacute;an aparecer listados en el <code>Makefile</code>.
+</p>
+
+<p>
+Para ejecutar un test, ejecuta indistintamente <code>make test</code>
+o <code>gotest</code>.
+Para ejecutar &uacute;nicamente los tests en un &uacute;nico fichero de pruebas, por ejemplo
+<code>un_test.go</code>, ejecuta <code>gotest un_test.go</code>.
+</p>
+
+<p>
+Si tus cambios afectan al rendimiento, a&ntilde;ade una funci&oacute;n de
+<code>Benchmark</code> (mira la <a href="/cmd/gotest/">documentaci&oacute;n del comando
+	gotest</a>) y ejec&uacute;talo utilizando <code>gotest -test.bench=.</code>.
+</p>
+
+<p>
+Cuando tengas tu c&oacute;digo probado y funcionado, es hora de <a
+	href="contribute.html">enviarlo y revisarlo</a>.
+</p>
+
+<h2 id="pkg_example">Un paquete de ejemplo con tests</h2>
+
+<p>
+Este paquete de ejemplo, <code>numeros</code>, posee una funci&oacute;n
+<code>Doble</code>, que recibe un <code>int</code> y devuelve dicho valor
+multiplicado por 2. El paquete tiene tres ficheros.
+</p>
+
+<p>
+Primero, el paquete de implementaci&oacute;n, <code>numeros.go</code>:
+</p>
+
+<pre>
+package numeros
+
+func Doble(i int) int {
+	return i * 2
+}
+</pre>
+
+<p>
+Despu&eacute;s, los tests, <code>numeros_test.go</code>:
+</p>
+
+<pre>
+package numeros
+
+import (
+	"testing"
+)
+
+type dobleTest struct {
+	ent, sal int
+}
+
+var dobleTests = []dobleTest{
+	dobleTest{1, 2},
+	dobleTest{2, 4},
+	dobleTest{-5, -10},
+}
+
+func TestDoble(t *testing.T) {
+	for _, dt := range dobleTests {
+		v := Doble(dt.ent)
+		if v != dt.sal {
+			t.Errorf("Doble(%d) = %d, requiere %d.", dt.ent, v, dt.sal)
+		}
+	}
+}
+</pre>
+
+<p>
+Finalmente, el <code>Makefile</code>:
+</p>
+
+<pre>
+include $(GOROOT)/src/Make.inc
+
+TARG=numeros
+GOFILES=\
+	numeros.go\
+
+include $(GOROOT)/src/Make.pkg
+</pre>
+
+<p>
+Ejecutando <code>gomake install</code> construir&aacute; e instalar&aacute; el paquete en el
+directorio <code>$GOROOT/pkg/</code> (puede ser utilizado por cualquier programa
+en el sistema).
+</p>
+
+<p>
+Ejecutando <code>gomake test</code> (o simplemente ejecutando
+<code>gotest</code>) reconstruir&aacute; el paquete, incluyendo el fichero
+<code>numeros_test.go</code>, y luego ejecutar&aacute; la funci&oacute;n
+<code>TestDoble</code>. La salida "<code>PASS</code>" indica que todos los test
+se han ejecutado satisfactorioamente. Rompiendo la implementaci&oacute;n cambiando, por
+ejemplo, el multiplicando de <code>2</code> a <code>3</code> har&aacute; que el
+programa falle y que veas c&oacute;mo se muestran los errores.
+</p>
+
+<p>
+Mira la <a href="/cmd/gotest/">documentaci&oacute;n de gotest</a> y la del <a
+	href="/pkg/testing/">paquete testing</a> para m&aacute;s detalle.
+</p>
+
+<h2 id="arch_os_specific">C&oacute;digo dependiente de la arquitectura y el sistema
+	operativo</h2>
+
+<p>Primero, un apunte: muy pocos paquetes de Go deber&iacute;an necesitar saber acerca
+del hardware y del sistema operativo sobre el que se ejecutan. En la gran
+mayor&iacute;a de los casos el lenguaje y la librer&iacute;a est&aacute;ndar tratar&aacute;n la mayor parte
+de los problemas de portabilidad. Esta secci&oacute;n es una gu&iacute;a para programadores de
+sistemas experimentados que tienen una buena raz&oacute;n para escribir c&oacute;digo
+dependiente de la plataforma, como soporte para el lenguaje ensamblador para
+funciones de c&aacute;lculo trigonom&eacute;trico o c&oacute;digo que implementa una interfaz com&uacute;n
+sobre diferentes sistemas operativos.</p>
+
+<p>Para compilar este c&oacute;digo, utiliza las <a
+	href="/doc/install.html#environment">variables de entorno</a>
+<code>$GOOS</code> y <code>$GOARCH</code> en los nombres de tus ficheros fuente
+y en el <code>Makefile</code>.</p>
+
+<p>Por ejemplo, este <code>Makefile</code> describe un paquete que se construye
+de manera diferente en distintos sistemas operativos parametrizando el nombre
+del fichero con <code>$GOOS</code>.</p>
+
+<pre>
+include $(GOROOT)/src/Make.inc
+
+TARG=mypaquete
+GOFILES=\
+	my.go\
+	my_$(GOOS).go\
+
+include $(GOROOT)/src/Make.pkg
+</pre>
+
+<p>El c&oacute;digo dependiente del Sistema Operativo va en <code>my_linux.go</code>,
+<code>my_darwin.go</code>...</p>
+
+<p>Si sigues estas parametrizaciones convencionales, herramientas como
+<a href="/cmd/goinstall/">goinstall</a> funcionar&aacute;n perfectamente con tu paquete:
+</p>
+
+<pre>
+my_$(GOOS).go
+my_$(GOARCH).go
+my_$(GOOS)_$(GOARCH).go
+</pre>
+
+<p>El mismo principio se aplica a los ficheros <code>.s</code> (ensamblador).</p>
