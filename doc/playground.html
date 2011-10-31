@@ -2,21 +2,23 @@
 
 <div class="left-column">
 <p>
-The Go Playground is a web service that runs on 
-<a href="http://golang.org/">golang.org</a>'s servers.
-The service receives a Go program, compiles, links, and runs the program inside 
-a sandbox, then returns the output.
+Go Playground es un servicio web alojado en los servidores de
+<a href="http://golang.org/">golang.org</a>.
+El sistema recibe un programa en Go, lo compila, enlaza y ejecuta dentro de
+un sandbox, devolviendo la salida al finalizar.
 </p>
 
 <p>
-There are limitations to the programs that can be run in the Playground.
-They must be single-threaded (but they may use many goroutines).
-There are also limits on execution time, and CPU and memory usage.
-The Playground can access only a subset of the standard library
-(notably absent are network and file system access).
-Therefore, the only communication a Playground program has to the outside world
-is via standard output.
-</div>
+Hay algunas limitaciones para que los programas puedan ser ejecutados en
+Playground.
+Deben utilizar un único hilo de ejecución, aunque pueden emplear varias
+goroutines.
+También existen límites en el tiempo de ejecución y en el uso de CPU y memoria.
+Playground disponde de un subconjunto de las librerías estándar (quedan fuera
+por ejemplo las librerías de red y acceso al sistema de ficheros).
+Por lo tanto, la única posibilidad de counicación de un programa en Playground
+con el mundo exterior es la salida estándar.
+</p>
 
 <div class="right-column">
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
