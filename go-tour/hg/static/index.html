@@ -243,7 +243,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Funciones</h2>
 	<p>
 	Una función puede devolver varios resultados.
 	<p>
@@ -274,7 +274,6 @@ func main() {
 	<p>
 	Si las variables de retorno tienen un nombre, una sentencia <code>return</code>
 	sin argumentos devuelve el valor actual de dichas variables.
-	without arguments returns the current values of the results.
 <div>
 package main
 
@@ -295,9 +294,8 @@ func main() {
 <div class="slide">
 	<h2>Variables</h2>
 	<p>
-	The <code>var</code> statement declares a list of variables;
-	as in function argument lists, the type is last.
-
+	La sentencia <code>var</code> declara una lista de variables;
+	como en la lista de argumentos de las funciones, el tipo se indica al final.
 <div>
 package main
 
@@ -315,10 +313,10 @@ func main() {
 <div class="slide">
 	<h2>Variables</h2>
 	<p>
-	A var declaration can include initializers, one per variable.
+	La declaracion de variables permite inizializaciones, una por variable.
 	<p>
-	If an initializer is present, the type can be omitted;
-	the variable will take the type of the initializer.
+	Si se inicializa una variable, el tipo puede omitirse;
+	la variable adoptará el tipo del valor con el que ha sido inicializada.
 <div>
 package main
 
@@ -336,8 +334,9 @@ func main() {
 <div class="slide">
 	<h2>Variables</h2>
 	<p>
-	Inside a function, the <code>:=</code> short assignment statement
-	can be used in place of the short <code>var</code> declaration.
+	Dentro de una función, puede utilizarse la sencencia de asignaciónn <code>:=</code> <!--short
+	assignment statement-->
+	en lugar de la declaración <code>var</code>.
 	<p>
 	(Outside a function, every construct begins with a keyword and the
 	<code>:=</code> construct is not available.)
@@ -356,12 +355,12 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Constants</h2>
+	<h2>Constantes</h2>
 	<p>
-	Constants are declared like variables, but with the <code>const</code>
-	keyword.
+	Las constantes se declaran como las variables, pero con la palabra reservada
+	<code>const</code>.
 	<p>
-	Constants can be string, boolean, or numeric values.
+	Las constantes pueden ser cadenas, booleanas, o numéricas.
 <div>
 package main
 
@@ -381,7 +380,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Numeric Constants</h2>
+	<h2>Constantes Numéricas</h2>
 	<p>
 	Numeric constants are high-precision <i>values</i>.
 	<p>
