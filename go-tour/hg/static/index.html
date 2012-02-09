@@ -145,7 +145,7 @@ func main() {
 	import "fmt"
 	import "math"
 	</pre>
-	pero es común usar la forma factorizada para eliminar código inecesario.
+	pero es común usar la forma factorizada para eliminar código innecesario.
 <div>
 package main
 
@@ -167,7 +167,7 @@ func main() {
 	Tras importar un paquete, puedes hacer referencia a los identificadores que
 	exporta.
 	<p>
-	En Go, un identificador es exportado si empieza por una mayuscula.
+	En Go, un identificador es exportado si empieza por una mayúscula.
 	<p>
 	<code>Pi</code> es un identificador exportado, al igual que <code>PI</code>.
 	El identificador <code>pi</code> no es exportado.
@@ -200,7 +200,7 @@ func main() {
 	Para más información acerca de porqué los tipos se miestran así, echale un
 	vistazo a <a target="_blank"
 		href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">esta
-		entrada(en)</a>.)
+		entrada</a> en inglés.)
 <div>
 package main
 
@@ -258,7 +258,7 @@ func swap(x, y string) (string, string) {
 }
 
 func main() {
-	a, b := swap("hello", "world")
+	a, b := swap("hola", "mundo")
 	fmt.Println(a, b)
 }
 </div>
@@ -269,8 +269,6 @@ func main() {
 	<p>
 	Las funciones tienen parametros; en Go los resultados pueden ser nombrados
 	y actuar como variables; se les denomina "variables de retorno"
-	Functions take parameters; in Go results can be named and act like
-	variables; these are called "result parameters."
 	<p>
 	Si las variables de retorno tienen un nombre, una sentencia <code>return</code>
 	sin argumentos devuelve el valor actual de dichas variables.
@@ -334,12 +332,12 @@ func main() {
 <div class="slide">
 	<h2>Variables</h2>
 	<p>
-	Dentro de una función, puede utilizarse la sencencia de asignaciónn <code>:=</code> <!--short
+	Dentro de una función, puede utilizarse la sentencia de asignación <code>:=</code> <!--short
 	assignment statement-->
 	en lugar de la declaración <code>var</code>.
 	<p>
-	(Outside a function, every construct begins with a keyword and the
-	<code>:=</code> construct is not available.)
+	(Fuera de una función, todas las declaraciones de variables comienzan con la
+	palabra clave var y el operando <code>:=</code> no está disponible.)
 <div>
 package main
 
@@ -369,12 +367,12 @@ import "fmt"
 const Pi = 3.14
 
 func main() {
-	const World = "世界"
-	fmt.Println("Hello", World)
-	fmt.Println("Happy", Pi, "Day")
+	const Mundo = "世界"
+	fmt.Println("Hola", Mundo)
+	fmt.Println("Feliz día de ", Pi)
 
 	const Truth = true
-	fmt.Println("Go rules?", Truth)
+	fmt.Println("¿Go mola?", Truth)
 }
 </div>
 </div>
@@ -382,11 +380,12 @@ func main() {
 <div class="slide">
 	<h2>Constantes Numéricas</h2>
 	<p>
-	Numeric constants are high-precision <i>values</i>.
+	Las constantes numéricas son <i>valores</i> de alta precisión.
 	<p>
-	An untyped constant takes the type needed by its context.
+	Una constante sin un tipo definido tiene el tipo necesitado según el
+	contexto en el que se declara.
 	<p>
-	Try printing <code>needInt(Big)</code> too.
+	Intenta también imprimir el valor <code>needInt(Big)</code>.
 <div>
 package main
 
@@ -413,11 +412,12 @@ func main() {
 <div class="slide">
 	<h2>For</h2>
 	<p>
-	Go has only one looping construct, the <code>for</code> loop.
+	Go tiene sólo un operando para definir los bucles, los bucles
+	<code>for</code>.
 	<p>
-	The basic <code>for</code> loop looks as it does in C or Java,
-	except that the <code>( )</code> are gone (they are not even optional)
-	and the <code>{ }</code> are required.
+	El bucle <code>for</code> básico es muy parecido al que se utiliza en
+	C o Java, salvo que los <code>( )</code> desaparecen (ni siquiera son
+	optionales) y las llaves <code>{ }</code> son obligatorias.
 <div>
 package main
 
@@ -436,7 +436,8 @@ func main() {
 <div class="slide">
 	<h2>For</h2>
 	<p>
-	As in C or Java, you can leave the pre and post statements empty.
+	Como en C o Java, puedes dejar las instrucciones de inicialización
+	e incremento vacías.
 <div>
 package main
 
@@ -455,8 +456,9 @@ func main() {
 <div class="slide">
 	<h2>For</h2>
 	<p>
-	At that point you can drop the semicolons:
-	C's <code>while</code> is spelled <code>for</code> in Go.
+	En este paso, puedes eliminar los puntos y coma <code>;</code>:
+	Un bucle <code>while</code> de C se transforma en un bucle <code>for</code>
+	en Go.
 <div>
 package main
 
@@ -475,7 +477,7 @@ func main() {
 <div class="slide">
 	<h2>For</h2>
 	<p>
-	If you omit the loop condition, it loops forever.
+	Si omites la condición del bucle, es un bucle infinito.
 <div>
 package main
 
@@ -489,8 +491,8 @@ func main() {
 <div class="slide">
 	<h2>For</h2>
 	<p>
-	And with no clauses at all, the semicolons can be omitted,
-	so an infinite loop is compactly expressed.
+	Y sin ninguna cláusula, los puntos y coma <code>;</code> pueden omitirse, de
+	forma que un bucle infinito se expresa de forma compacta.
 <div>
 package main
 
@@ -504,11 +506,11 @@ func main() {
 <div class="slide">
 	<h2>If</h2>
 	<p>
-	The <code>if</code> statement looks as it does in C or Java,
-	except that the <code>( )</code> are gone (they are not even optional)
-	and the <code>{ }</code> are required.
+	La instrucción <code>if</code> es similar a la sentencia en C o Java, salvo
+	que los paréntesis <code>( )</code> desaparecen (ni siquiera son opcionales)
+	y las llaves <code>{ }</code> son obligatorias.
 	<p>
-	(Sound familiar?)
+	(¿Te suena de algo?)
 <div>
 package main
 
@@ -533,13 +535,14 @@ func main() {
 <div class="slide">
 	<h2>If</h2>
 	<p>
-	Like <code>for</code>, the <code>if</code> statement can start with a
-	short statement to execute before the condition.
+	Al igual que en la sentencia <code>for</code>, la sentencia <code>if</code>
+	puede empezar con una instrucción de inicialización que se ejecutará antes
+	de evaluar la condición.
 	<p>
-	Variables declared by the statement are only in scope until the end of
-	the <code>if</code>.
+	Las variables declaradas por la instrucción de inicialización son únicamente
+	visibles en el ámbito del <code>if</code>.
 	<p>
-	(Try using <code>v</code> in the last <code>return</code> statement.)
+	(Intenta usar <code>v</code> en la última sentencia <code>return</code>.)
 <div>
 package main
 
@@ -567,8 +570,8 @@ func main() {
 <div class="slide">
 	<h2>If</h2>
 	<p>
-	Variables declared inside an <code>if</code>'s short statement are also
-	available inside any of the <code>else</code> blocks.
+	Las variables declaradas dentro de la instrucción de inicialización de un
+	<code>if</code> son también visibles dentro de los bloques <code>else</code>.
 <div>
 package main
 
@@ -583,7 +586,7 @@ func pow(x, n, lim float64) float64 {
 	} else {
 		fmt.Printf("%g >= %g\n", v, lim)
 	}
-	// can't use v here, though
+	// No se puede usar v aquí
 	return lim
 }
 
@@ -597,9 +600,9 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Basic types</h2>
+	<h2>Tipos básicos</h2>
 	<p>
-	Go's basic types are
+	Los tipos básicos en Go son
 	<pre>
 bool
 
@@ -636,11 +639,11 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Structs</h2>
+	<h2>Estructuras</h2>
 	<p>
-	A <code>struct</code> is a collection of fields.
+	Una estructura (<code>struct</code>) es un registro de variables dentro de un mismo tipo.
 	<p>
-	(And a <code>type</code> declaration does what you'd expect.)
+	(Y una declaración <code>type</code> declara un nuevo tipo de datos.)
 <div>
 package main
 
@@ -658,9 +661,10 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Struct Fields</h2>
+	<h2>Campos de una estructura</h2>
 	<p>
-	Struct fields are accessed using a dot.
+	Los campos de una estructura son accesibles mediante el operador
+	<code>.</code> (punto).
 <div>
 package main
 
@@ -680,12 +684,13 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Pointers</h2>
+	<h2>Punteros</h2>
 	<p>
-	Go has pointers, but no pointer arithmetic.
+	Go posee punteros, pero no tiene aritmética de punteros (como C).
 	<p>
-	Struct fields can be accessed through a struct pointer.
-	The indirection through the pointer is transparent.
+	Los campos de las estructuras pueden accederse a través de un puntero a una
+	estructura.
+	La indirección del puntero es transparente al programador.
 <div>
 package main
 
@@ -706,15 +711,15 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Struct Literals</h2>
+	<h2>Estructuras literales</h2>
 	<p>
-	A struct literal denotes a newly allocated struct value by listing the
-	values of its fields.
+	Una estructura literal denota una nueva instancia de la estructura que
+	muestra los valores de sus campos.
 	<p>
-	You can list just a subset of fields by using the <code>Name:</code>
-	syntax. (And the order of named fields is irrelevant.)
+	Puedes mostrar sólo un subconjunto de los campos utilizando la sintaxis
+	<code>Name:</code>. (Y el orden de los campos nombrados es irrelevante.)
 	<p>
-	The special prefix <code>&</code> constructs a pointer to a struct
+	El prefijo especial <code>&</code> construye un puntero a una estructura
 	literal.
 <div>
 package main
@@ -726,10 +731,10 @@ type Vertex struct {
 }
 
 var (
-	p = Vertex{1, 2}  // has type Vertex
-	q = &Vertex{1, 2} // has type *Vertex
-	r = Vertex{X: 1}  // Y:0 is implicit
-	s = Vertex{}      // X:0 and Y:0
+	p = Vertex{1, 2}  // Tiene tipo Vertex
+	q = &Vertex{1, 2} // Tiene tipo *Vertex
+	r = Vertex{X: 1}  // Y:0 es implícito
+	s = Vertex{}      // X:0 e Y:0
 )
 
 func main() {
@@ -739,13 +744,13 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>The <code>new</code> function</h2>
+	<h2>La función <code>new</code></h2>
 	<p>
-	The expression <code>new(T)</code> allocates a zeroed <code>T</code>
-	value and returns a pointer to it.
+	La expresión <code>new(T)</code> aloja en memoria un valor <code>T</code>
+	inicializado a 0 y retorna un puntero al mismo.
 	<pre>var t *T = new(T)</pre>
 	<p>
-	or
+	o
 	<pre>t := new(T)</pre>
 <div>
 package main
@@ -768,12 +773,12 @@ func main() {
 <div class="slide">
 	<h2>Maps</h2>
 	<p>
-	A map maps keys to values.
+	Un map relaciona claves y valores.
 	<p>
 	<!-- TODO: empty part not true in compilers yet -->
-	Maps must be created with <code>make</code> (not <code>new</code>)
-	before use; the <code>nil</code> map is empty and cannot be assigned
-	to.
+	Los Maps deben crearse con la función <code>make</code> (nunca con
+	<code>new</code>) antes de su uso; el map <code>nil</code> está vacío y no
+	puede ser asignado.
 <div>
 package main
 
@@ -798,7 +803,8 @@ func main() {
 <div class="slide">
 	<h2>Maps</h2>
 	<p>
-	Map literals are like struct literals, but the keys are required.
+	Los map literales son como las estructuras literales, pero las claves son
+	obligatorias.
 <div>
 package main
 
@@ -826,8 +832,8 @@ func main() {
 <div class="slide">
 	<h2>Maps</h2>
 	<p>
-	If the top-level type is just a type name, you can omit it from the
-	elements of the literal.
+	Si el tipo superior es un nombre de un tipo, puedes omitirlo de los
+	elementos del literal.
 <div>
 package main
 
@@ -851,9 +857,9 @@ func main() {
 <div class="slide">
 	<h2>Slices</h2>
 	<p>
-	A slice points to an array of values and also includes a length.
+	Un slice apunta a un array de valores y posee un tamaño.
 	<p>
-	<code>[]T</code> is a slice with elements of type <code>T</code>.
+	<code>[]T</code> es un slice con elementos de tipo <code>T</code>.
 <div>
 package main
 
@@ -874,20 +880,20 @@ func main() {
 <div class="slide">
 	<h2>Slices</h2>
 	<p>
-	Slices can be re-sliced, creating a new slice value that points to the
-	same array.
+	Los slices pueden ser reasignados, creando un nuevo slice que apunte al
+	mismo array.
 	<p>
-	The expression
+	La expresión
 	<pre>s[lo:hi]</pre>
 	<p>
-	evaluates to a slice of the elements from <code>lo</code> through
-	<code>hi-1</code>, inclusive. Thus
+	es evaluada como un slice de elementos desde el elemento de índice
+	<code>lo</code> hasta el elemento <code>hi-1</code> inclusive. Por tanto
 	<pre>s[lo:lo]</pre>
 	<p>
-	is empty and
+	es un slice vacío y
 	<pre>s[lo:lo+1]</pre>
 	<p>
-	has one element.
+	tiene un elemento.
 <div>
 package main
 
@@ -898,10 +904,10 @@ func main() {
 	fmt.Println("p ==", p)
 	fmt.Println("p[1:4] ==", p[1:4])
 
-	// missing low index implies 0
+	// Un valor de inicio omitido implica 0
 	fmt.Println("p[:3] ==", p[:3])
 
-	// missing high index implies len(s)
+	// Un valor de fin omitido implica len(s)
 	fmt.Println("p[4:] ==", p[4:])
 }
 </div>
@@ -910,22 +916,21 @@ func main() {
 <div class="slide">
 	<h2>Slices</h2>
 	<p>
-	Slices are created with the <code>make</code> function. It works by
-	allocating a zeroed array and returning a slice that refers to that
-	array:
+	Los slices son creados con la función <code>make</code>. Funciona alojando
+	un array inicializado a 0 y retornando un slice que apunta a ese array:
 	<pre>
 a := make([]int, 5)  // len(a)=5
 	</pre>
-	Slices have length and capacity. A slice's capacity is the maximum
-	length the slice can grow within the underlying array.
+	Los slices tienen un tamaño y una capacidad. La capacidad de un slice es el
+	tamaño máximo que el slice puede crecer dentro del array al que apunta.
 	<p>
-	To specify a capacity, pass a third argument to <code>make</code>:
+	Para especificar una capacidad basta con pasar un tercer argumento a <code>make</code>:
 	<p>
 	<pre>
 b := make([]int, 0, 5)
 // len(b)=0, cap(b)=5
 	</pre>
-	Slices can be grown by "re-slicing" (up to their capacity):
+	Los slices pueden crecer reasignándose (por encima de su capacidad):
 	<p>
 	<pre>
 b = b[:cap(b)] // len(b)=5, cap(b)=5
@@ -957,13 +962,13 @@ func printSlice(s string, x []int) {
 <div class="slide">
 	<h2>Slices</h2>
 	<p>
-	The zero value of a slice is <code>nil</code>.
+	El valor por defecto de un slice es <code>nil</code>.
 	<p>
-	A nil slice has a length and capacity of 0.
+	Un slice <code>nil</code> tiene un tamaño y una longitud de 0.
 	<p>
-	<i>For more detail see the 
+	<i>Para más detalle por favor mira el artículo (en inglés) 
 	"<a target="_blank" href="http://blog.golang.org/2011/01/go-slices-usage-and-internals.html">Go Slices: usage and internals</a>"
-	article.</i>
+	</i>
 <div>
 package main
 
@@ -973,16 +978,16 @@ func main() {
 	var z []int
 	fmt.Println(z, len(z), cap(z))
 	if z == nil {
-		fmt.Println("nil!")
+		fmt.Println("¡nulo!")
 	}
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Funciones</h2>
 	<p>
-	Functions are values too.
+	Las funciones también son valores.
 <div>
 package main
 
@@ -1002,12 +1007,12 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Funciones</h2>
 	<p>
-	And functions are full closures.
+	Y las funciones son clausuras completas.
 	<p>
-	The <code>adder</code> function returns a closure.
-	Each closure is bound to its own <code>sum</code> variable.
+	La función <code>adder</code> retorna una clausura (o función anónima).
+	Cada clausura está vinculada a su variable <code>sum</code> correspondiente.
 <div>
 package main
 
@@ -1036,8 +1041,8 @@ func main() {
 <div class="slide">
 	<h2>Range</h2>
 	<p>
-	The <code>range</code> form of the <code>for</code>
-	loop iterates over a slice or map.
+	La forma <code>range</code> de un bucle <code>for</code> itera sobre
+	elementos de un slice o un map.
 <div>
 package main
 
@@ -1056,10 +1061,10 @@ func main() {
 <div class="slide">
 	<h2>Range</h2>
 	<p>
-	You can skip the key or value by assigning to <code>_</code>.
+	Puedes obviar la clave o el valor asignándoselo a <code>_</code>.
 	<p>
-	If you only want the index, drop the 
-	&ldquo;<code>, value</code>&rdquo; entirely.
+	Si sólo quieres el índice, descarta el 
+	&ldquo;<code>, value</code>&rdquo; integramente.
 <div>
 package main
 
@@ -1080,9 +1085,12 @@ func main() {
 <div class="slide">
 	<h2>Switch</h2>
 	<p>
-	You probably knew what <code>switch</code> was going to look like.
+	Probablemente ya sabes cómo iba a ser la cláusula <code>switch</code>.
 	<p>
-	A case body breaks automatically, unless it ends with a <code>fallthrough</code> statement.
+	El cuerpo de un caso sale automáticamente de la cláusula
+	<code>switch</code>, a menos que termine con una sentencia
+	<code>fallthrough</code>, que provocaría que siguiera ejecutando el
+	siguiente caso contemplado.
 
 <div>
 package main
@@ -1111,17 +1119,17 @@ func main() {
 <div class="slide">
 	<h2>Switch</h2>
 	<p>
-	Switch cases evaluate cases from top to bottom, stopping when a
-	case succeeds.
+	Los casos de un Switch evaluan los casos de arriba a abajo, parando cuando
+	se encuentra un caso satisfactorio.
 	<p>
-	(For example,
+	(Por ejemplo,
 	<pre>
 switch i {
 case 0:
 case f():
 }</pre>
 	<p>
-	does not call <code>f</code> if <code>i==0</code>.)
+	no ejecuta <code>f</code> si <code>i==0</code>.)
 
 <div>
 package main
@@ -1132,17 +1140,17 @@ import (
 )
 
 func main() {
-	fmt.Println("When's Saturday?")
+	fmt.Println("¿Cuándo es Sábadoy?")
 	today := time.LocalTime().Weekday
 	switch time.Saturday {
 	case today+0:
-		fmt.Println("Today.")
+		fmt.Println("Hoy.")
 	case today+1:
-		fmt.Println("Tomorrow.")
+		fmt.Println("Mañana.")
 	case today+2:
-		fmt.Println("In two days.")
+		fmt.Println("Dentro de dos días.")
 	default:
-		fmt.Println("Too far away.")
+		fmt.Println("Demasiado tarde.")
 	}
 }
 </div>
@@ -1151,7 +1159,7 @@ func main() {
 <div class="slide">
 	<h2>Switch</h2>
 	<p>
-	Switch without a condition is the same as <code>switch true</code>.
+	Un switch sin condición es lo mismo que <code>switch true</code>.
 
 <div>
 package main
@@ -1165,38 +1173,38 @@ func main() {
 	t := time.LocalTime()
 	switch {
 	case t.Hour < 12:
-	    fmt.Println("Good morning!")
+	    fmt.Println("¡Buenos días!")
 	case t.Hour < 17:
-	    fmt.Println("Good afternoon.")
+	    fmt.Println("Buenas tardes.")
 	default:
-	    fmt.Println("Good evening.")
+	    fmt.Println("Buenas noches.")
 	}
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Exercise: Loops and Functions</h2>
+	<h2>Ejercicio: Bucles y Funciones</h2>
 	<p>
-	As a simple way to play with functions and loops, implement
-	the square root function using Newton's method.
+	Una forma sencilla de jugar con funciones y bucles es implementar la
+	funcionalidad de la raíz cuadrada utilizando el método de Newton.
 	<p>
-	In this case, Newton's method is to approximate <code>Sqrt(x)</code>
-	by picking a starting point <i>z</i> and then repeating:
+	En este caso el método de Newton aproxima <code>Sqrt(x)</code> tomando un
+	punto inicial <i>z</i> y repitiendo:
 	<center>
 	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^2-x}{2z}">
 	</center>
 	<p>
-	To begin with, just repeat that calculation 10 times and see how close you
-	get to the answer for various values (1, 2, 3, ...).
+	Para empezar, simplemente repite el cálculo 10 veces y mira cómo de cerca
+	estás de la solución para distintos valores (1, 2, 3, ...).
 	<p>
-	Next, change the loop condition to stop once the value has stopped
-	changing (or only changes by a very small delta).
-	See if that's more or fewer iterations.
-	How close are you to the <a target="_blank" href="http://golang.org/pkg/math/#Sqrt">math.Sqrt</a>?
+	Después cambia la condición del bucle para parar cuando el valor deje de
+	cambiar (o solo cambie con un delta muy pequeño).
+	Mira si esto ocurre con más o menos iteraciones. ¿Cómo estás de cerca
+	comparado con <a target="_blank" href="http://golang.org/pkg/math/#Sqrt">math.Sqrt</a>?
 	<p>
-	Hint: to declare and initialize a floating point value, give it
-	floating point syntax or use a conversion:
+	Pista: para declarar e inicializar un valor decimal dale un valor decimal
+	o utiliza la conversión:
 	<pre>
 	z := float64(0)
 	z := 0.0
@@ -1219,14 +1227,14 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Maps</h2>
+	<h2>Ejercicio: Maps</h2>
 	<p>
-	Implement <code>WordCount</code>.  It should return a map of the
-	counts of each &ldquo;word&rdquo; in the string <code>s</code>.
-	The <code>wc.Test</code> function runs a test suite against the
-	provided function and prints success or failure.
+	Implementa <code>ContadorPalabras</code>. Debería devolver un map con el
+	número de veces que una  &ldquo;palabra&rdquo; aparece en la cadena <code>s</code>.
+	La función <code>wc.Test</code> ejecuta un caso de prueba ejecutando la
+	función implementada e imprime éxito o fallo.
 	<p>
-	You might find <a target="_blank" href="http://golang.org/pkg/strings/#Fields">strings.Fields</a> helpful.
+	Puedes encontrar ayuda en  <a target="_blank" href="http://golang.org/pkg/strings/#Fields">strings.Fields</a>.
 
 <div>
 package main
@@ -1235,30 +1243,31 @@ import (
 	"<span class="appengineMode">tour</span><span class="localMode">go-tour.googlecode.com/hg</span>/wc"
 )
 
-func WordCount(s string) map[string]int {
+func ContadorPalabras(s string) map[string]int {
 	return map[string]int{"x": 1}
 }
 
 func main() {
-	wc.Test(WordCount)
+	wc.Test(ContadorPalabras)
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Exercise: Slices</h2>
+	<h2>Ejercicio: Slices</h2>
 	<p>
-	Implement <code>Pic</code>. It should return a slice of length
-	<code>dy</code>, each element of which is a slice of <code>dx</code>
-	8-bit unsigned integers. When you run the program, it will display
-	your picture, interpreting the integers as grayscale (well, bluescale)
-	values.
+	Implementa la función <code>Pic</code>. Debería devolver un slice de tamaño
+	<code>dy</code>, siendo cada uno de los elementos un slice de
+	<code>dx</code> enteros sin signo de 8 bits. Cuando ejecutes el programa,
+	mostrará tu dibujo, interpretando los números enteros como una escala de
+	grises (bueno, escala de azules).
 	<p>
-	The choice of image is up to you.
-	Interesting functions include <code>x^y</code>, <code>(x+y)/2</code>, and <code>x*y</code>.
+	La elección de la imagen es de tu elección.
+	Algunas funciones interesantes pueden ser <code>x^y</code>,
+	<code>(x+y)/2</code>, y <code>x*y</code>.
 	<p>
-	(You need to use a loop to allocate each <code>[]uint8</code> inside
-	the <code>[][]uint8</code>.)
+	(Necesitas usar un bucle para reservar memoria para cada
+	<code>[]uint8</code> dentro de la matriz <code>[][]uint8</code>.)
 
 <div>
 package main
@@ -1275,20 +1284,20 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Fibonacci closure</h2>
+	<h2>Ejercicio: La clausura de Fibonacci</h2>
 	<p>
-	Let's have some fun with functions.
+	Vamos a divertirnos un poco con las funciones.
 	<p>
-	Implement a <code>fibonacci</code> function that returns a function
-	(a closure) that returns successive fibonacci numbers.
+	Implementa una función de <code>fibonacci</code> que devuelva una función (o
+	clausura) que devuelva los sucesivos números de fibonacci.
 
 <div>
 package main
 
 import "fmt"
 
-// fibonacci is a function that returns
-// a function that returns an int.
+// fibonacci es una función que devuelve
+// una función que devuelve un int.
 func fibonacci() func() int {
 }
 
@@ -1302,17 +1311,17 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Advanced Exercise: Complex cube roots</h2>
+	<h2>Ejercicio avanzado: Raices cúbicas complejas</h2>
 	<p>
-	Let's explore Go's built-in support for complex numbers via the
-	<code>complex64</code> and <code>complex128</code> types.
-	For cube roots, Newton's method amounts to repeating:
+	Veamos cuál es el soporte de Go para números complejos mediante los tipos 
+	<code>complex64</code> y <code>complex128</code>.
+	Para raíces cuadradas el método de Newton se basa en repeticiones:
 	<center>
 	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^3-x}{3z^2}">
 	</center>
 	<p>
-	Find the cube root of 2, just to make sure the algorithm works.
-	There is a <a target="_blank" href="http://golang.org/pkg/cmath/#Pow">cmath.Pow</a> function.
+	Busca la raíz cúbica de 2, para asegurarte que el algoritmo funciona. Existe
+	una función <a target="_blank" href="http://golang.org/pkg/cmath/#Pow">cmath.Pow</a>.
 
 <div>
 package main
@@ -1329,20 +1338,20 @@ func main() {
 </div>
 
 
-<div class="toc">Methods and Interfaces</div>
+<div class="toc">Métodos e Interfaces</div>
 
 <div class="slide nocode">
-<h2>Methods and Interfaces</h2>
+	<h2>Métodos e Interfaces</h2>
 </div>
 
 <div class="slide">
-	<h2>Methods</h2>
+	<h2>Métodos</h2>
 	<p>
-	Go does not have classes. However, you can define methods on struct
-	types.
+	Go no tiene clases. De todas formas, puedes definir métodos para tipos
+	struct.
 	<p>
-	The <i>method receiver</i> appears in its own argument list
-	between the <code>func</code> keyword and the method name.
+	El <i>receptor del método</i> aparece en su propia lista de argumentos entre
+	la palabra reservada <code>func</code> y el nombre del método.
 <div>
 package main
 
@@ -1367,13 +1376,12 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Methods</h2>
+	<h2>Métodos</h2>
 	<p>
-	In fact, you can define a method on <i>any</i> type you define in your
-	package, not just structs.
+	De hecho, puedes definir un método para <i>cualquier</i> tipo que definas en
+	tu paquete, no sólamente para estructuras.
 	<p>
-	You cannot define a method on a type from another package, or on a
-	basic type.
+	No puedes definir un método de un tipo de otro paquete o de un tipo básico.
 <div>
 package main
 
@@ -1399,33 +1407,31 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Methods with pointer receivers</h2>
+	<h2>Métodos con punteros a receptores</h2>
 	<p>
-	Methods can be associated with a named type or a pointer
-	to a named type.
+	Los métodos pueden asociarse con un tipo o un puntero a un tipo declarado.
 	<p>
-	We just saw two <code>Abs</code> methods. One on the
-	<code>*Vertex</code> pointer type and the other on the
-	<code>MyFloat</code> value type.
+	Acabamos de ver dos métodos <code>Abs</code>. Uno para el puntero a un
+	vértice	<code>*Vertex</code> y otro para el tipo <code>MyFloat</code>.
 	<p>
-	There are two reasons to use a pointer receiver.
-	First, to avoid copying the value on each method call (more efficient
-	if the value type is a large struct). Second, so that the method can
-	modify the value that its receiver points to.
+	Hay dos razones para usar un receptor de tipo puntero.
+	Primero, para evitar copiar el valor en cada llamada al método (más
+	eficiente si el tipo usado es una estructura grande). Segundo, de tal forma
+	que el método pueda modificar el valor a la que apunta el receptor.
 	</ol>
 	<p>
-	Try changing the declarations of the <code>Abs</code> and
-	<code>Scale</code> methods to use <code>Vertex</code> as the
-	receiver, instead of <code>*Vertex</code>.
+	Intenta cambiar las declaraciones de los métodos <code>Abs</code> y
+	<code>Scale</code> para usar <code>Vertex</code> como el receptor, en lugar
+	de <code>*Vertex</code>.
 	<p>
-	The <code>Scale</code> method has no effect when <code>v</code> is a
-	<code>Vertex</code>. <code>Scale</code> mutates <code>v</code>. When
-	<code>v</code> is a value (non-pointer) type, the method sees a copy of
-	the <code>Vertex</code> and cannot mutate the original value.
+	El método <code>Scale</code> no tiene efecto cuando <code>v</code> es un
+	vértice	<code>Vertex</code>. <code>Scale</code> cambia <code>v</code>.
+	Cuando<code>v</code> es un tipo (no un puntero) el método ve una copia del
+	vértice <code>Vertex</code> y no puede mutar el valor original.
 	<p>
-	<code>Abs</code> works either way. It only reads <code>v</code>.
-	It doesn't matter whether it is reading the original value (through a
-	pointer) or a copy of that value.
+	<code>Abs</code> funciona de cualquier forma. Sólo lee <code>v</code>.
+	No importa si está leyendo el valor original (a través del puntero) o una
+	copia del valor.
 <div>
 package main
 
@@ -1458,10 +1464,9 @@ func main() {
 <div class="slide">
 	<h2>Interfaces</h2>
 	<p>
-	An interface type is defined by a set of methods.
+	Una interfaz es un tipo de datos definido como un conjunto de métodos.
 	<p>
-	A value of interface type can hold any value that
-	implements those methods.
+	Un tipo interface puede contener cualquier tipo que implemente esos métodos.
 
 <div>
 package main
@@ -1480,10 +1485,9 @@ func main() {
 	f := MyFloat(-math.Sqrt2)
 	v := Vertex{3, 4}
 
-	a = f  // a MyFloat implements Abser
-	a = &v // a *Vertex implements Abser
-	a = v  // a Vertex, does NOT
-	       // implement Abser
+	a = f  // a MyFloat implementa Abser
+	a = &v // a *Vertex implementa Abser
+	a = v  // a Vertex, NO implementa Abser
 
 	fmt.Println(a.Abs())
 }
@@ -1510,18 +1514,19 @@ func (v *Vertex) Abs() float64 {
 <div class="slide">
 	<h2>Interfaces</h2>
 	<p>
-	A type implements an interface by implementing the methods.
+	Un tipo implementa una interfaz simplemente implementando los métodos.
 	<p>
-	<i>There is no explicit declaration of intent.</i>
+	<i>No hay declaración explícita.</i>
 	<p>
-	Implicit interfaces decouple implementation packages from the packages
-	that define the interfaces: neither depends on the other.
+	Las interfaces implícitas desacoplan la implementación de paquetes entre los
+	paquetes que definen las interfaces: ninguno depende de otro.
 	<p>
-	It also encourages the definition of precise interfaces, because you
-	don't have to find every implementation and tag it with the new
-	interface name.
+	También favorece la definición de interfaces precisas, porque no tienes que
+	encontrar todas las implementaciones y etiquetarlas con el nuevo nombre de
+	la interfaz.
 	<p>
-	<a target="_blank" href="http://golang.org/pkg/io/">Package io</a> defines <code>Reader</code> and <code>Writer</code>; you don't have to.
+	<a target="_blank" href="http://golang.org/pkg/io/">El paquete io</a> define
+	<code>Reader</code> y <code>Writer</code>; Tú no tienes que hacerlo.
 <div>
 package main
 
@@ -1546,7 +1551,7 @@ type ReadWriter interface {
 func main() {
 	var w Writer
 
-	// os.Stdout implements Writer
+	// os.Stdout implementa Writer
 	w = os.Stdout
 
 	fmt.Fprintf(w, "hello, writer\n")
@@ -1555,9 +1560,9 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Errors</h2>
+	<h2>Errores</h2>
 	<p>
-	An error is anything that can describe itself:
+	Un error es cualquier cosa que se defina así mismo:
 	<pre>
 package os
 
@@ -1601,10 +1606,10 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Web servers</h2>
+	<h2>Servidores Web</h2>
 	<p>
-	<a target="_blank" href="http://golang.org/pkg/http/">Package http</a> serves HTTP requests using any value
-	that implements <code>http.Handler</code>:
+	<a target="_blank" href="http://golang.org/pkg/http/">El paquete http</a>
+	sirve peticiones HTTP usando cualquier valor que implemente <code>http.Handler</code>:
 	<pre>
 package http
 
@@ -1614,15 +1619,16 @@ type Handler interface {
 }
 	</pre>
 	<p>
-	In this example, the type <code>MyHandler</code> implements <code>http.Handler</code>.
+	En este ejemplo, el tipo <code>MyHandler</code> implementa <code>http.Handler</code>.
 	<p>
 	<span class="localMode">
-	Visit <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a> to see the greeting.
+	Visita <a href="http://localhost:4000/"
+		target="_blank">http://localhost:4000/</a> para ver la bienvenida.
 	</span>
 	<span class="appengineMode">
-	<b>Note:</b> This example won't run through the web-based tour user
-	interface. To try writing web servers you may want to
-	<a target="_blank" href="http://golang.org/doc/install.html">Install
+	<b>Nota:</b> Este ejemplo sólo se puede ejecutar a través del tour web
+	local. Para intentar implementar servidores web puedes 
+	<a target="_blank" href="http://golang.org/doc/install.html">Instalar
 	Go</a>.
 	</span>
 <div>
@@ -1638,7 +1644,7 @@ type Hello struct{}
 func (h Hello) ServeHTTP(
 		w http.ResponseWriter,
 		r *http.Request) {
-	fmt.Fprint(w, "Hello!")
+	fmt.Fprint(w, "¡Hola!")
 }
 
 func main() {
@@ -1649,10 +1655,10 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Images</h2>
+	<h2>Imágenes</h2>
 	<p>
-	<a target="_blank" href="http://golang.org/pkg/image/#Image">Package image</a> defines the <code>Image</code>
-	interface:
+	<a target="_blank" href="http://golang.org/pkg/image/#Image">El paquete
+		image</a> define la interfaz <code>Image</code>:
 	<pre>
 package image
 
@@ -1662,12 +1668,12 @@ type Image interface {
 	At(x, y int) Color
 }</pre>
 	<p>
-	(See <a target="_blank" href="http://golang.org/pkg/image/#Image">the
-	documentation</a> for all the details.)
+	(Mira <a target="_blank" href="http://golang.org/pkg/image/#Image">la
+	documentación</a> para más detalles.)
 	<p>
-	<code>Color</code> and <code>ColorModel</code> are interfaces too,
-	but we'll ignore that by using the predefined implementations
-	<code>image.RGBAColor</code> and <code>image.RGBAColorModel</code>.
+	<code>Color</code> y <code>ColorModel</code> también son interfaces, pero
+	las ignoraremos usando las implementaciones predefinidas
+	<code>image.RGBAColor</code> y <code>image.RGBAColorModel</code>.
 
 <div>
 package main
@@ -1686,32 +1692,32 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Errors</h2>
+	<h2>Ejercicio: Errores</h2>
 	<p>
-	Copy your <code>Sqrt</code> function from the earlier exercises and
-	modify it to return an <code>os.Error</code> value.
+	Copia tu función <code>Sqrt</code> de ejercicios anteriores y modifícala
+	para que devuelva un valor de tipo <code>os.Error</code>.
 	<p>
-	<code>Sqrt</code> should return a non-nil error value when given a
-	negative number, as it doesn't support complex numbers.
+	<code>Sqrt</code> debe devolver un error no nulo cuando se le pasa un número
+	negativo, dado que no soporta números complejos.
 	<p>
-	Create a new type
+	Crea un nuevo tipo
 	<pre>
 type ErrNegativeSqrt float64</pre>
 	<p>
-	and make it an <code>os.Error</code> by giving it a 
+	y hazlo del tipo <code>os.Error</code> implementando un método 
 	<pre>
 func (e ErrNegativeSqrt) String() string</pre>
 	<p>
-	method such that <code>ErrNegativeSqrt(-2).String()</code> returns
-	<code>"cannot Sqrt negative number: -2"</code>.
+	de forma que <code>ErrNegativeSqrt(-2).String()</code> devuelva
+	<code>"no se puede calbular la raíz de un número negativo: -2"</code>.
 	<p>
-	<b>Note:</b> a call to <code>fmt.Print(e)</code> inside the
-	<code>String</code> method will send the program into an infinite loop.
-	You can avoid this by converting <code>e</code> first:
-	<code>fmt.Print(float64(e))</code>. Why?
+	<b>Nota:</b> una llamada a <code>fmt.Print(e)</code> dentro del método
+	<code>String</code> hará que el programa entre en un bucle infinito.
+	Puedes evitarlo convirtiendo <code>e</code>:
+	<code>fmt.Print(float64(e))</code>. ¿Por qué?
 	<p>
-	Change your <code>Sqrt</code> function to return an
-	<code>ErrNegativeSqrt</code> value when given a negative number.
+	Cambia tu función <code>Sqrt</code> para devolver un valor
+	<code>ErrNegativeSqrt</code> cuando se le pase un número negativo.
 <div>
 package main
 
@@ -1732,10 +1738,10 @@ func main() {
 </div>
 
 <div class="slide localMode">
-	<h2>Exercise: HTTP Handlers</h2>
+	<h2>Ejercicio: Manejadores HTTP</h2>
 	<p>
-	Implement the following types and define ServeHTTP methods on them.
-	Register them to handle specific paths in your web server.
+	Implementa los siguientes tipos y define métodos ServeHTTP para ellos.
+	Asígnalos distintas rutas de tu servidor web.
 <pre>type String string
 	
 type Struct struct {
@@ -1744,9 +1750,9 @@ type Struct struct {
 	Who      string
 }</pre>
 	<p>
-	For example, you should be able to register handlers using:
+	Por ejemplo, deberías poder asignárselas usando:
 <pre>http.Handle("/string", String("I'm a frayed knot."))
-http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})</pre>
+http.Handle("/struct", &Struct{"Hola", ":", "Gophers!"})</pre>
 <div>
 package main
 
@@ -1755,31 +1761,32 @@ import (
 )
 
 func main() {
-	// your http.Handle calls here
+	// Tu http.Handle llama aquí
 	http.ListenAndServe("localhost:4000", nil)
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Exercise: Images</h2>
+	<h2>Ejercicio: Imágenes</h2>
 	<p>
-	Remember the picture generator you wrote earlier?
-	Let's write another one, but this time it will return
-	an implementation of <code>image.Image</code> instead of a slice of data.
+	¿Recuerdas el generador de imágenes que escribiste antes?
+	Vamos a escribir otro, pero esta vez devolverá una implementación de
+	<code>image.Image</code> en lugar de un slice.
 	<p>
-	Define your own <code>Image</code> type, implement
-	<a target="_blank" href="http://golang.org/pkg/image/#Image" target="_blank">the necessary methods</a>,
-	and call <code>pic.ShowImage</code>.
+	Define tu propio tipo <code>Image</code>, implementa
+	<a target="_blank" href="http://golang.org/pkg/image/#Image"
+		target="_blank">los métodos necesarios</a>, y llama a <code>pic.ShowImage</code>.
 	<p>
-	<code>Bounds</code> should return a <code>image.Rectangle</code>, like
+	<code>Bounds</code> deberían devolver un <code>image.Rectangle</code>,
+	como
 	<code>image.Rect(0, 0, w, h)</code>.
 	<p>
-	<code>ColorModel</code> should return <code>image.RGBAColorModel</code>.
+	<code>ColorModel</code> debería devolver <code>image.RGBAColorModel</code>.
 	<p>
-	<code>At</code> should return a color;
-	the value <code>v</code> in the last picture generator corresponds to
-	<code>image.RGBAColor{v, v, 255, 255}</code> in this one.
+	<code>At</code> debería devolver un color;
+	el valor <code>v</code> del último generador corresponde a 
+	<code>image.RGBAColor{v, v, 255, 255}</code>.
 
 <div>
 package main
@@ -1799,26 +1806,27 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Rot13 Reader</h2>
+	<h2>Ejercicio: Lector Rot13</h2>
 	<p>
-	A common pattern is an
-	<a target="_blank" href="http://golang.org/pkg/io/#Reader">io.Reader</a> that wraps
-	another <code>io.Reader</code>, modifying the stream in some way.
+	Un patrón común es un 
+	<a target="_blank" href="http://golang.org/pkg/io/#Reader">io.Reader</a> que
+	encapsula otro <code>io.Reader</code>, modificando el flujo de datos de
+	alguna forma.
 	<p>
-	For example, the
+	Por ejemplo, la función 
 	<a target="_blank" href="http://golang.org/pkg/compress/gzip/#Decompressor.NewReader">gzip.NewReader</a>
-	function takes an <code>io.Reader</code> (a stream of gzipped data)
-	and returns a <code>*gzip.Decompressor</code> that also implements
-	<code>io.Reader</code> (a stream of the decompressed data).
+	recibe un <code>io.Reader</code> (un flujo de datos en formato gzip)
+	y devuelve un <code>*gzip.Decompressor</code> que también implementa
+	<code>io.Reader</code> (un flujo de datos descomprimidos).
 	<p>
-	Implement a <code>rot13Reader</code> that implements
-	<code>io.Reader</code> and reads from an <code>io.Reader</code>,
-	modifying the stream by applying the
-	<a target="_blank" href="http://en.wikipedia.org/wiki/ROT13">ROT13</a>
-	substitution cipher to all alphabetical characters.
+	Implementa un <code>rot13Reader</code> que implemente 
+	<code>io.Reader</code> y lea de un <code>io.Reader</code>,
+	modificando el flujo de datos aplicándole el algoritmo de cifrado
+	<a target="_blank" href="http://es.wikipedia.org/wiki/ROT13">ROT13</a>
+	a todos los caracteres alfabéticos.
 	<p>
-	The <code>rot13Reader</code> type is provided for you.  Make it an
-	<code>io.Reader</code> by implementing its <code>Read</code> method.
+	El tipo <code>rot13Reader</code> está completo. Implementa su método
+	<code>Read</code> para que implemente la interfaz <code>io.Reader</code>.
 <div>
 package main
 
@@ -1841,31 +1849,31 @@ func main() {
 </div>
 </div>
 
-<div class="toc">Concurrency</div>
+<div class="toc">Concurrencia</div>
 
 <div class="slide nocode">
-<h2>Concurrency</h2>
+<h2>Concurrencia</h2>
 </div>
 
 <div class="slide">
-	<h2>Goroutines</h2>
+	<h2>Gorutinas</h2>
 	<p>
-	A <i>goroutine</i> is a lightweight thread managed by the Go runtime.
+	Una <i>gorutina</i> es un hilo ligero manejado por el runtime de Go.
 	<pre>go f(x, y, z)</pre>
 	<p>
-	starts a new goroutine running
+	comienza una nueva gorutina ejecutando
 	<pre>f(x, y, z)</pre>
 	<p>
-	The evaluation
-        of <code>f</code>, <code>x</code>, <code>y</code>, and <code>z</code>
-        happens in the current goroutine and the execution of <code>f</code>
-	happens in the new goroutine.
+	La evaluación de
+        <code>f</code>, <code>x</code>, <code>y</code>, y <code>z</code>
+        ocurre en la gorutina actual y la ejecución de <code>f</code>
+	sucede en una nueva gorutina.
 	<p>
-	Goroutines run in the same address space, so access to shared memory
-	must be synchronized. The <code><a href="http://golang.org/pkg/sync/"
-	target="_blank">sync</a></code> package provides useful primitives,
-	although you won't need them much in Go as there are other primitives.
-	(See the next slide.)
+	Las gorutinas ejecutan dentro del mismo espacio de direcciones, así que el
+	acceso a memoria compartida debe ser síncronizado. El paquete <code><a href="http://golang.org/pkg/sync/"
+	target="_blank">sync</a></code> provee de llamadas útiles, aunque no las
+	necesitarás demasiado ya que Go provee otro tipo de primitivas. (Mira la
+	siguiente transparencia.)
 <div>
 package main
 
@@ -1882,35 +1890,37 @@ func say(s string) {
 }
 
 func main() {
-	go say("world")
-	say("hello")
+	go say("mundo")
+	say("hola")
 }
 </div>
 </div>
 
 <div class="slide">
-	<h2>Channels</h2>
+	<h2>Canales</h2>
 
 	<p>
-	Channels are a typed conduit through which you can send and receive values with the channel operator, <code>&lt;-</code>.
+	Los canales son un tipo de datos a través de los cuales puedes enviar
+	o recibir valores con el operador <code>&lt;-</code>.
 <pre>
-ch <- v    // Send v to channel ch.
-v := <-ch  // Receive from ch, and
-           // assign value to v.
+ch <- v    // Envía v al canal ch.
+v := <-ch  // Recibe del canal ch y
+           // asigna el valor a v.
 </pre>
 	<p>
-	(The data flows in the direction of the "arrow".)
+	(Los datos fluyen en la dirección de la "flecha".)
 
 	<p>
-	Like maps and slices, channels must be created before use:
+	De la misma forma que los maps y slices, los canales deben crearse antes de
+	usarlos:
 <pre>
 ch := make(chan int)
 </pre>
 
 	<p>
-	By default, sends and receives block until the other side is ready.
-	This allows goroutines to synchronize without explicit locks or
-	condition variables.
+	Por defecto, los envíos y recepciones se bloquean hasta que el otro extremo
+	está listo. Esto permite que las gorutinas se sincronicen sin cerrojos
+	explícitos o variables condicionales.
 <div>
 package main
 
@@ -1921,7 +1931,7 @@ func sum(a []int, c chan int) {
 	for _, v := range a {
 		sum += v
 	}
-	c <- sum  // send sum to c
+	c <- sum  // envía sum a c
 }
 
 func main() {
@@ -1930,7 +1940,7 @@ func main() {
         c := make(chan int)
 	go sum(a[:len(a)/2], c)
 	go sum(a[len(a)/2:], c)
-        x, y := <-c, <-c  // receive from c
+        x, y := <-c, <-c  // recibe de c
 
 	fmt.Println(x, y, x + y)
 }
@@ -1939,21 +1949,22 @@ func main() {
 
 
 <div class="slide">
-	<h2>Buffered Channels</h2>
+	<h2>Canales con buffer</h2>
 	
 	<p>
-	Channels can be <i>buffered</i>.  Provide the buffer length as the
-	second argument to <code>make</code> to initialize a buffered channel:
+	Los canales pueden tener un <i>buffer</i>. Se puede indicar el tamaño del
+	buffer pasando un segundo argumento a <code>make</code> para inicializar un
+	canal con buffer de recepción:
 <pre>
 ch := make(chan int, 100)
 </pre>
 
 	<p>
-	Sends to a buffered channel block only when the buffer is full.
-	Receives block when the buffer is empty.
+	Los envíos a un canal con buffer se bloquean sólo si el buffer está lleno.
+	Las recepciones se bloquean si el buffer está vacío.
 
 	<p>
-	Modify the example to overfill the buffer and see what happens.
+	Modifica el ejemplo para llenar el buffer y observa qué ocurre.
 
 <div>
 package main
@@ -1971,26 +1982,26 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Range and Close</h2>
+	<h2>Range y Close</h2>
 	<p>
-	A sender can <code>close</code> a channel to indicate that no more
-	values will be sent. Receivers can test whether a channel has been
-	closed by assigning a second parameter to the receive expression: after
+	Un hilo que envía datos puede cerrar un canal para indicar que ya no se van
+	a enviar más datos. Los receptores pueden comprobar si un canal ha sido
+	cerrado asignando un segundo parámetro en la expresión de recepción:
 	<pre>
 v, ok := &lt;-ch</pre>
 	<p>
-	<code>ok</code> is <code>false</code> if there are no more values to
-	receive and the channel is closed.
+	<code>ok</code> es <code>false</code> si no hay más valores que recibir y el
+	canal está cerrado.
 	<p>
-	The loop <code>for i := range c</code> receives values from the
-	channel repeatedly until it is closed.
+	El bucle <code>for i := range c</code> recibe valores de un canal de forma
+	repetida hasta que éste es cerrado.
 	<p>
-	<b>Note:</b> Only the sender should close a channel, never the
-	receiver. Sending on a closed channel will cause a panic.
+	<b>Nota:</b> Sólo el hilo que envía datos debería cerrar un canal, nunca el
+	receptor. Los envíos a un canal cerrado generarán una excepción.
 	<p>
-	<b>Another note</b>: Channels aren't like files; you don't usually
-	need to close them. Closing is only necessary when the receiver must be
-	told there are no more values coming.
+	<b>Otra nota:</b> Los canales no son como ficheros; normalmente no necesitas
+	cerrarlos. Cerrar un canal sólo es necesario cuando el receptor debe ser
+	avisado que no va a recibir más datos.
 <div>
 package main
 
@@ -2020,11 +2031,12 @@ func main() {
 <div class="slide">
 	<h2>Select</h2>
 	<p>
-	The <code>select</code> statement lets a goroutine wait on multiple
-	communication operations.
+	La cláusula <code>select</code> permite a una gorutina esperar diversas
+	operaciones de comunicación.
 	<p>
-	A <code>select</code> blocks until one of its cases can run, then it
-	executes that case.  It chooses one at random if multiple are ready.
+	Un <code>select</code> se bloquea hasta que uno de sus casos puede ser
+	ejecutado, ejecutando el caso que ha satisfecho su condición. Elige uno al
+	azar si hay varios listos.
 <div>
 package main
 
@@ -2037,7 +2049,7 @@ func fibonacci(c, quit chan int) {
                 case c <- x:
                           x, y = y, x + y
                 case <-quit:
-			fmt.Println("quit")
+			fmt.Println("sale")
                         return
                 }
         }
@@ -2058,13 +2070,13 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Default Selection</h2>
+	<h2>Select por defecto</h2>
 	<p>
-	The <code>default</code> case in a <code>select</code> is run if no
-	other case is ready.
+	El caso <code>default</code> en una cláusula <code>select</code> ejecuta si
+	no hay otro caso listo.
 	<p>
-	Use a <code>default</code> case to try a send or receive without
-	blocking:
+	Utiliza un caso <code>default</code> para intentar enviar o recibir de forma
+	no bloqueante:
 	<pre>
 select {
 case i := <-c:
@@ -2074,12 +2086,11 @@ default:
 }</pre>
 	<p>
 	<span class="appengineMode">
-	<b>Note:</b> This example won't run through the web-based tour user
-	interface because the
-	<a target="_blank" href="http://golang.org/doc/play/">sandbox
-	environment</a> has no concept of time. You may want to
-	<a target="_blank" href="http://golang.org/doc/install.html">install
-	Go</a> to see this example in action.
+		<b>Nota:</b> Este ejemplo no ejecutará en la versión web porque el 
+	<a target="_blank" href="http://golang.org/doc/play/">entorno posee una sandbox
+	</a> que no tiene el concepto de tiempo. Quizá quieras 
+	<a target="_blank" href="http://golang.org/doc/install.html">instalar
+		Go</a> para ver este ejemplo en acción.
 	</span>
 <div>
 package main
@@ -2109,19 +2120,20 @@ func main() {
 </div>
 
 <div class="slide nocode">
-	<h2>Exercise: Equivalent Binary Trees</h2>
+	<h2>Ejercicio: Árboles binarios equivalentes</h2>
 	<p>
-	There can be many different binary trees with the same sequence of
-	values stored at the leaves.
-	For example, here are two binary trees storing the sequence
+	Hay muchos árboles binarios con la misma secuencia de valores almacenadas en
+	las hojas.
+	Por ejemplo, aquí hay dos árboles binarios almacenando la secuencia
 	1, 1, 2, 3, 5, 8, 13.
 	<img src="static/fig4.png">
 	<p>
-	A function to check whether two binary trees store the same sequence is
-	quite complex in most languages. We'll use Go's concurrency and
-	channels to write a simple solution.
+	Una función para comprobar que dos árboles binarios almacenan la misma
+	secuencia es bastante compleja en la mayoría de los lenguajes de
+	programación. Usaremos la concurrencia de Go y los canales para escribir una
+	solución sencilla.
 	<p>
-	This example uses the <code>tree</code> package, which defines the type:
+	Este ejemplo usa el paquete <code>tree</code>, que define el tipo:
 <pre>
 type Tree struct {
 	Left  *Tree
@@ -2132,43 +2144,44 @@ type Tree struct {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Equivalent Binary Trees</h2>
+	<h2>Ejercicio: Árboles binarios equivalentes</h2>
 	<p>
-	<b>1.</b> Implement the <code>Walk</code> function.
+	<b>1.</b> Implementa la función <code>Walk</code>.
 	<p>
-	<b>2.</b> Test the <code>Walk</code> function.
+	<b>2.</b> Testea la función <code>Walk</code>.
 	<p>
-	The function <code>tree.New(k)</code> constructs a randomly-structured
-	binary tree holding the values <code>k</code>, <code>2k</code>, <code>3k</code>, ...,
+	La función <code>tree.New(k)</code> construye un árbol binario de estructura
+	aleatoria con los valores <code>k</code>, <code>2k</code>, <code>3k</code>, ...,
 	<code>10k</code>.
 	<p>
-	Create a new channel <code>ch</code> and kick off the walker:
+	Crea un nuevo canal <code>ch</code> y lanza la función Walk:
 <pre>
 go Walk(tree.New(1), ch)
 </pre>
 	<p>
-	Then read and print 10 values from the channel.
-	It should be the numbers 1, 2, 3, ..., 10.
+	Después lee e imprime 10 valores del canal.
+	Deberían ser los números 1, 2, 3, ..., 10.
 	<p>
-	<b>3.</b> Implement the <code>Same</code> function using <code>Walk</code>
-	to determine whether <code>t1</code> and <code>t2</code> store the same values.
+	<b>3.</b> Implementa la función <code>Same</code> usando la función <code>Walk</code>
+	para determinar si <code>t1</code> y <code>t2</code> almacenan los mismos
+	valores.
 	<p>
-	<b>4.</b> Test the <code>Same</code> function. 
+	<b>4.</b> Testea la función <code>Same</code>.
 	<p>
-	<code>Same(tree.New(1), tree.New(1))</code> should return true, and
-	<code>Same(tree.New(1), tree.New(2))</code> should return false.
+	<code>Same(tree.New(1), tree.New(1))</code> debería devolver true, y
+	<code>Same(tree.New(1), tree.New(2))</code> debería devolver false.
 
 <div>
 package main
 
 import "<span class="appengineMode">tour</span><span class="localMode">go-tour.googlecode.com/hg</span>/tree"
 
-// Walk walks the tree t sending all values
-// from the tree to the channel ch.
+// Walk lee el árbol t enviando todos los valores
+// del árbol al canal ch.
 func Walk(t *tree.Tree, ch chan int)
 
-// Same determines whether the trees
-// t1 and t2 contain the same values.
+// Same determina si los árboles
+// t1 and t2 contienen los mismos valores.
 func Same(t1, t2 *tree.Tree) bool
 
 func main() {
@@ -2177,13 +2190,13 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Web Crawler</h2>
+	<h2>Ejercicio: Web Crawler</h2>
 	<p>
-	In this exercise you'll use Go's concurrency features to
-	parallelize a web crawler.
+	En este ejercicio usarás las características de concurrencia de Go para
+	paralelizar un web crawler.
 	<p>
-	Modify the <code>Crawl</code> function to fetch URLs in parallel
-	without fetching the same URL twice.
+	Modifica la función <code>Crawl</code> para obtener las URLs en paralelo sin
+	obtener la misma URL dos veces.
 <div>
 package main
 
@@ -2193,17 +2206,17 @@ import (
 )
 
 type Fetcher interface {
-	// Fetch returns the body of URL and
-	// a slice of URLs found on that page.
+	// Fetch devuelve el cuerpo de una URL
+	// un slice con las URLs encontradas en esa página.
 	Fetch(url string) (body string, urls []string, err os.Error)
 }
 
-// Crawl uses fetcher to recursively crawl
-// pages starting with url, to a maximum of depth.
+// Crawl usa fetcher para recorrer recursivamente
+// las páginas empezando por url, hasta un máximo de depth.
 func Crawl(url string, depth int, fetcher Fetcher) {
-	// TODO: Fetch URLs in parallel.
-	// TODO: Don't fetch the same URL twice.
-	// This implementation doesn't do either:
+	// TODO: Obtener URLs en paralelo.
+	// TODO: No obtengas la misma URL dos veces.
+	// Esta implementación tampoco lo hace:
 	if depth <= 0 {
 		return
 	}
@@ -2224,7 +2237,7 @@ func main() {
 }
 
 
-// fakeFetcher is Fetcher that returns canned results.
+// fakeFetcher es un Fetcher que devuelve resultados repetidos.
 type fakeFetcher map[string]*fakeResult
 
 type fakeResult struct {
@@ -2239,7 +2252,6 @@ func (f *fakeFetcher) Fetch(url string) (string, []string, os.Error) {
 	return "", nil, fmt.Errorf("not found: %s", url)
 }
 
-// fetcher is a populated fakeFetcher.
 var fetcher = &fakeFetcher{
 	"http://golang.org/": &fakeResult{
 		"The Go Programming Language",
@@ -2276,46 +2288,48 @@ var fetcher = &fakeFetcher{
 </div>
 
 <div class="slide nocode">
-	<h2>Where to Go from here...</h2>
+	<h2>Por dónde continuar...</h2>
 	<p class="appengineMode">
-	You can get started by
-	<a href="http://golang.org/doc/install.html">installing Go</a> or
-	downloading the
-	<a href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go">Go App Engine SDK</a>.
+	Puedes comenzar 
+	<a href="http://golang.org/doc/install.html">instalando Go</a> o
+	descargándote el SDK de
+	<a href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go">Go App Engin</a>.
 	</p>
 	<p>
-	<span class="appengineMode">Once you have Go on your machine, the</span>
-	<span class="localMode">The</span>
-	<a target="_blank" href="http://golang.org/doc/docs.html">Go Documentation</a>
-	is a great place to
-	<span class="appengineMode">continue</span>
-	<span class="localMode">start</span>.
-	It contains references, tutorials, videos, and more.
+	<span class="appengineMode">Una vez que lo tengas ejecutando en tu
+		ordenador, la</span>
+	<span class="localMode">la</span>
+	<a target="_blank" href="http://golang.org/doc/docs.html">Documentación de Go</a>
+	es un buen lugar para 
+	<span class="appengineMode">continuar</span>
+	<span class="localMode">empezar</span>.
+	Contiene referencias a tutoriales, videos, y mucho más.
 	<p>
-	If you need help with the standard library,
-	see the <a target="_blank" href="http://golang.org/pkg/">package
-	reference</a>.  For help with the language itself, you might be
-	surprised to find the
-	<a target="_blank" href="http://golang.org/doc/go_spec.html">Language
-	Spec</a> is quite readable.
-	<p>
-	If you're interested in writing web applications,
-	see the
+	Si necesitas ayuda con la biblioteca estándar echa un vistazo a <a
+		target="_blank" href="http://golang.org/pkg/">la API de los
+		paquetes</a>. Para ayuda con el lenguaje, puedes asombrarte con la
+	facilidad de lectura de la
+	<a target="_blank" href="http://golang.org/doc/go_spec.html">especificación
+	del lenguaje</a>.
+<p>
+	Si estás interesado en escribir aplicaciones web, échale un vistazo a la 
 	<a target="_blank" href="http://golang.org/doc/codelab/wiki/">Wiki
 	Codelab</a>.
 	<p>
-	If you want to further explore Go's concurrency model, see the
-	<a target="_blank" href="http://golang.org/doc/codewalk/sharemem/">Share Memory by Communicating</a>
-	codewalk.
+	Si quieres explorar más a fondo el modelo de concurrencia de Go, échale un
+	vistazo al documento
+	<a target="_blank" href="http://golang.org/doc/codewalk/sharemem/">Comparte
+	memoria comunicándote</a>.
 	<p>
-	The <a target="_blank" href="http://golang.org/doc/codewalk/functions/">First Class Functions in Go</a>
-	codewalk gives an interesting perspective on Go's function types.
+	El documento <a target="_blank"
+		href="http://golang.org/doc/codewalk/functions/">Funciones de primera
+		clase de Go</a> otorga una interesante perspectiva de los tipos de
+	funciones en Go.
 	<p>
-	The <a target="_blank" href="http://blog.golang.org/">Go Blog</a> has a
-	large archive of informative Go articles.
+	El <a target="_blank" href="http://blog.golang.org/">Blog de Go</a> tiene un
+	gran archivo de artículos informativos de Go.
 	<p>
-	Visit <a target="_blank" href="http://golang.org">golang.org</a> for
-	more.
+	Visita <a target="_blank" href="http://golang.org">golang.org</a>.
 </div>
 
 </div><!-- end slides -->
