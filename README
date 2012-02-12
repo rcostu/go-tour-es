@@ -4,7 +4,7 @@ lenguaje, que incluirá un manual.
 
 El go-tour está traducido. Si alguien hace un fork pra colaborar en la
 traducción se agradece que modifique únicamente el archivo
-go-tour/hg/static/index.html.
+go-tour/hg/appengine/static/index.html.
 
 Se está traduciendo la documentación exitente en doc/. Se está realizando
   en orden y el último fichero modificado es docs.html
