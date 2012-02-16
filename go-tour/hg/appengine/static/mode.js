@@ -1,1 +1,1 @@
-var tourMode = "local";
+var tourMode = "appengine";

@@ -107,6 +107,26 @@ func main() {
 		en "índice".)</i>
 </div>
 
+<div class="slide nocode appengineMode">
+	<h2>Go en local</h2>
+	<p>
+	El tour está disponible en otros idiomas:
+	<ul>
+	<li><a href="http://go.golang.org/">Inglés &mdash; English</a></li>
+	<li><a href="http://go-tour-zh.appspot.com/">Chino &mdash; 中文</a></li>
+	<li><a href="http://go-tour-jp.appspot.com/">Japon&eacute;s &mdash; 日本語</a></li>
+	<li><a href="http://go-tour-kr.appspot.com/">Coreano &mdash; 한국어</a></li>
+	</ul>
+	<p>
+	(Si quieres traducir el tour a otro idioma, descarga el código de
+	<code>https://go-tour.googlecode.com/hg</code>, traduce
+	<code>static/index.html</code>, y después lánzalo a producción en el App
+	Engine utilizando las instrucciones que están en
+	<code>appengine/README</code>.)
+	<p>
+	Haz click en "siguiente" o pulsa PageDown para continuar.
+</div>
+
 <div class="toc">Introducción</div>
 
 <div class="slide">
@@ -610,6 +630,8 @@ string
 
 int  int8  int16  int32  int64
 uint uint8 uint16 uint32 uint64 uintptr
+
+rune // Representa un punto Unicode
 
 float32 float64
 
@@ -1272,7 +1294,7 @@ func main() {
 <div>
 package main
 
-import "<span class="appengineMode">tour</span><span class="localMode">tour</span>/pic"
+import "<span class="appengineMode">tour</span><span class="localMode">code.google.com/p/go-tour</span>/pic"
 
 func Pic(dx, dy int) [][]uint8 {
 }
@@ -1536,11 +1558,11 @@ import (
 )
 
 type Reader interface {
-	Read(b []byte) (n int, err os.Error)
+	Read(b []byte) (n int, err error)
 }
 
 type Writer interface {
-	Write(b []byte) (n int, err os.Error)
+	Write(b []byte) (n int, err error)
 }
 
 type ReadWriter interface {
@@ -1562,37 +1584,42 @@ func main() {
 <div class="slide">
 	<h2>Errores</h2>
 	<p>
-	Un error es cualquier cosa que se defina así mismo:
+	Un error es cualquier cosa que se defina así mismo como una cadena de error.
+	La idea está en la interfaz predefinida <code>error</code>,
+	con su único método, <code>Error</code>, que devuelve una cadena de
+	caracteres:
 	<pre>
-package os
 
-type Error interface {
-	String() string
+type error interface {
+	Error() string
 }
 	</pre>
+
+	<p>
+	Las funciones de impresión del paquete <code>fmt</code> sabe cómo llamar al
+	método cuando se le pide imprimir un <code>error</code>.
 
 <div>
 package main
 
 import (
 	"fmt"
-	"os"
 	"time"
 )
 
 type MyError struct {
-	When *time.Time
+	When time.Time
 	What string
 }
 
-func (e *MyError) String() string {
+func (e *MyError) Error() string {
 	return fmt.Sprintf("at %v, %s",
 		e.When, e.What)
 }
 
-func run() os.Error {
+func run() error {
 	return &MyError{
-		time.LocalTime(),
+		time.Now(),
 		"it didn't work",
 	}
 }
@@ -1636,7 +1663,7 @@ package main
 
 import (
 	"fmt"
-	"http"
+	"net/http"
 )
 
 type Hello struct{}
@@ -1663,17 +1690,17 @@ func main() {
 package image
 
 type Image interface {
-	ColorModel() ColorModel
+	ColorModel() color.Model
 	Bounds() Rectangle
-	At(x, y int) Color
+	At(x, y int) color.Color
 }</pre>
 	<p>
 	(Mira <a target="_blank" href="http://golang.org/pkg/image/#Image">la
 	documentación</a> para más detalles.)
 	<p>
-	<code>Color</code> y <code>ColorModel</code> también son interfaces, pero
+	<code>color.Color</code> y <code>color.Model</code> también son interfaces, pero
 	las ignoraremos usando las implementaciones predefinidas
-	<code>image.RGBAColor</code> y <code>image.RGBAColorModel</code>.
+	<code>image.RGBA</code> y <code>image.RGBAModel</code>.
 
 <div>
 package main
@@ -1684,7 +1711,7 @@ import (
 )
 
 func main() {
-	m := image.NewRGBA(100, 100)
+	m := image.NewRGBA(image.Rect(0, 0, 100, 100))
 	fmt.Println(m.Bounds())
 	fmt.Println(m.At(0, 0).RGBA())
 }
@@ -1695,7 +1722,7 @@ func main() {
 	<h2>Ejercicio: Errores</h2>
 	<p>
 	Copia tu función <code>Sqrt</code> de ejercicios anteriores y modifícala
-	para que devuelva un valor de tipo <code>os.Error</code>.
+	para que devuelva un valor de tipo <code>error</code>.
 	<p>
 	<code>Sqrt</code> debe devolver un error no nulo cuando se le pasa un número
 	negativo, dado que no soporta números complejos.
@@ -1704,15 +1731,15 @@ func main() {
 	<pre>
 type ErrNegativeSqrt float64</pre>
 	<p>
-	y hazlo del tipo <code>os.Error</code> implementando un método 
+	y hazlo del tipo <code>error</code> implementando un método 
 	<pre>
-func (e ErrNegativeSqrt) String() string</pre>
+func (e ErrNegativeSqrt) Error() string</pre>
 	<p>
 	de forma que <code>ErrNegativeSqrt(-2).String()</code> devuelva
 	<code>"no se puede calbular la raíz de un número negativo: -2"</code>.
 	<p>
 	<b>Nota:</b> una llamada a <code>fmt.Print(e)</code> dentro del método
-	<code>String</code> hará que el programa entre en un bucle infinito.
+	<code>Error</code> hará que el programa entre en un bucle infinito.
 	Puedes evitarlo convirtiendo <code>e</code>:
 	<code>fmt.Print(float64(e))</code>. ¿Por qué?
 	<p>
@@ -1723,10 +1750,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
-func Sqrt(f float64) (float64, os.Error) {
+func Sqrt(f float64) (float64, error) {
 	return 0, nil
 }
 
@@ -1743,7 +1769,7 @@ func main() {
 	Implementa los siguientes tipos y define métodos ServeHTTP para ellos.
 	Asígnalos distintas rutas de tu servidor web.
 <pre>type String string
-	
+
 type Struct struct {
 	Greeting string
 	Punct    string
@@ -1757,7 +1783,7 @@ http.Handle("/struct", &Struct{"Hola", ":", "Gophers!"})</pre>
 package main
 
 import (
-	"http"
+	"net/http"
 )
 
 func main() {
@@ -1786,14 +1812,14 @@ func main() {
 	<p>
 	<code>At</code> debería devolver un color;
 	el valor <code>v</code> del último generador corresponde a 
-	<code>image.RGBAColor{v, v, 255, 255}</code>.
+	<code>color.RGBA{v, v, 255, 255}</code>.
 
 <div>
 package main
 
 import (
 	"image"
-	"<span class="appengineMode">tour</span><span class="localMode">tour</span>/pic"
+	"<span class="appengineMode">tour</span><span class="localMode">code.google.com/p/go-tour</span>/pic"
 )
 
 type Image struct{}
@@ -1842,7 +1868,7 @@ type rot13Reader struct {
 
 func main() {
 	s := strings.NewReader(
-		"Lbh penpxrq gur pbqr!")
+		"Lbh penpxrq gur pbqr!") 
 	r := rot13Reader{s}
 	io.Copy(os.Stdout, &r)
 }
@@ -1883,7 +1909,7 @@ import (
 )
 
 func say(s string) {
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 5; i++ { 
 		<span class="appengineMode">runtime.Gosched()</span><span class="localMode">time.Sleep(100e6)</span>
 		fmt.Println(s)
 	}
@@ -1975,7 +2001,7 @@ func main() {
 	c := make(chan int, 2)
 	c <- 1
 	c <- 2
-	fmt.Println(<-c)
+	fmt.Println(<-c) 
 	fmt.Println(<-c)
 }
 </div>
@@ -2024,7 +2050,7 @@ func main() {
         for i := range c {
                 fmt.Println(i)
         }
-}
+} 
 </div>
 </div>
 
@@ -2063,7 +2089,7 @@ func main() {
 			fmt.Println(<-c)
 		}
 		quit <- 0
-	}()
+ 	}()
 	fibonacci(c, quit)
 }
 </div>
@@ -2113,7 +2139,7 @@ func main() {
                 default:
                         fmt.Println("    .")
                         time.Sleep(5e7)
-                }
+                 }
         }
 }
 </div>
@@ -2174,7 +2200,7 @@ go Walk(tree.New(1), ch)
 <div>
 package main
 
-import "<span class="appengineMode">tour</span><span class="localMode">tour</span>/tree"
+import "<span class="appengineMode">tour</span><span class="localMode">code.google.com/p/go-tour</span>/tree"
 
 // Walk lee el árbol t enviando todos los valores
 // del árbol al canal ch.
@@ -2201,14 +2227,13 @@ func main() {
 package main
 
 import (
-	"os"
 	"fmt"
 )
 
 type Fetcher interface {
 	// Fetch devuelve el cuerpo de una URL
 	// un slice con las URLs encontradas en esa página.
-	Fetch(url string) (body string, urls []string, err os.Error)
+	Fetch(url string) (body string, urls []string, err error)
 }
 
 // Crawl usa fetcher para recorrer recursivamente
@@ -2245,7 +2270,7 @@ type fakeResult struct {
 	urls     []string
 }
 
-func (f *fakeFetcher) Fetch(url string) (string, []string, os.Error) {
+func (f *fakeFetcher) Fetch(url string) (string, []string, error) {
 	if res, ok := (*f)[url]; ok {
 		return res.body, res.urls, nil
 	}
