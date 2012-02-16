@@ -80,7 +80,7 @@ function showToc() {
 function hideToc() {
 	$("#toc").hide();
 	$("#slides, #code, #output").show();
-	$("#tocbtn").text("&Iacute;NDICE");
+	$("#tocbtn").text("ÍNDICE");
 }
 
 function show(i) {
