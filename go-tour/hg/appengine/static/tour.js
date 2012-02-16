@@ -44,12 +44,12 @@ function init() {
 			if (i > 0) {
 				$nav.append($("<button>").click(function() {
 					show(i-1);
-				}).text("PREV").addClass("prev"));
+				}).text("ANTERIOR").addClass("prev"));
 			}
 			if (i+1 < slides.length) {
 				$nav.append($("<button>").click(function() {
 					show(i+1);
-				}).text("NEXT").addClass("next"));
+				}).text("SIGUIENTE").addClass("next"));
 			}
 			$nav.insertBefore($h2);
 
@@ -65,7 +65,7 @@ function init() {
 	});
 
 	// set up playground editor
-	$editor = $('<div id="code"><button id="run">RUN</button><textarea/></div>');
+	$editor = $('<div id="code"><button id="run">EJECUTAR</button><textarea/></div>');
 	$editor.insertBefore("#slides");
 	$output = $('<div id="output"/>').insertBefore("#slides");
 	editor = playground("#code textarea", "#output", "#run", null, null);
@@ -74,13 +74,13 @@ function init() {
 function showToc() {
 	$("#toc").show();
 	$("#slides, #code, #output").hide();
-	$("#tocbtn").text("SLIDES");
+	$("#tocbtn").text("TRANSPARENCIAS");
 }
 
 function hideToc() {
 	$("#toc").hide();
 	$("#slides, #code, #output").show();
-	$("#tocbtn").text("INDEX");
+	$("#tocbtn").text("&Iacute;NDICE");
 }
 
 function show(i) {
