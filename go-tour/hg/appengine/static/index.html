@@ -6,43 +6,44 @@
 <!-- jQuery -->
 <script src="static/jquery.js"></script>
 
-<!-- Fonts -->
-<link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
-
-<!-- Playground -->
+<!-- CodeMirror -->
 <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
 <script src="/static/codemirror/lib/codemirror.js"></script>
-<link rel="stylesheet" href="/static/codemirror/theme/default.css">
-<script src="static/playground.js"></script>
+<script src="/static/codemirror/lib/go.js"></script>
 
 <!-- Tour -->
-<link rel="stylesheet" href="static/tour.css" charset="utf-8">
+<link rel="stylesheet" href="static/tour.css">
 <script src="static/mode.js"></script>
+<script>
+// Localized user interface.
+var tr = {
+	"off": "no",
+	"on": "sí",
+	"syntax": "Resaltar sintaxis",
+	"lineno": "Números de línea",
+	"reset": "Restaurar",
+	"format": "Dar formato al código",
+	"kill": "Acabar ejecución",
+	"run": "Ejecutar",
+	"toc": "Índice",
+	"prev": "Anterior",
+	"next": "Siguiente",
+	"waiting": "Esperando al servidor remoto...",
+	"errcomm": "Error de comunicación con el servidor remoto.",
+}
+</script>
 <script src="static/tour.js"></script>
 
 </head>
-<body class="loading">
+<body>
+	<div id="wrap">
+		<div id="header">
+			<div id="slidenum">1</div>
+				<a href="#toc" id="tocbtn" title="Table of Contents"></a>
+				<h1>Tour de Go</h1>
+			</div>
 
-<!-- Top bar -->
-<h2 id="slidenum"></h2>
-<div id="topnav" class="nav">
-	<button id="tocbtn">ÍNDICE</button>
-</div>
-<h1>Un tour por Go</h1>
-
-<!-- Loading message -->
-<div id="loading">
-	Cargando diapositivas...
-</div>
-
-<!-- Table of Contents -->
-<ol id="toc"></ol>
-
-<div id="slides" class="slides"><!-- begin slides -->
-
-<div class="toc">Bienvenidos</div>
+			<div id="slides" class="slides"><!-- begin slides -->
 
 <div class="slide">
 	<h2>Hola, 世界</h2>
@@ -67,7 +68,7 @@
 	<p>
 	Cuando estés listo para continuar, haz click en Siguiente
 	o presiona la tecla PageDown.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -75,7 +76,7 @@ import "fmt"
 func main() {
 	fmt.Println("Hola, 世界")
 }
-</div>
+</pre>
 </div>
 
 <div class="slide nocode appengineMode">
@@ -116,6 +117,7 @@ func main() {
 	<li><a href="http://go-tour-zh.appspot.com/">Chino &mdash; 中文</a></li>
 	<li><a href="http://go-tour-jp.appspot.com/">Japon&eacute;s &mdash; 日本語</a></li>
 	<li><a href="http://go-tour-kr.appspot.com/">Coreano &mdash; 한국어</a></li>
+	<li><a href="http://go-tour-ca.appspot.com/">Catalán &mdash; Català</a></li>
 	</ul>
 	<p>
 	(Si quieres traducir el tour a otro idioma, descarga el código de
@@ -141,7 +143,7 @@ func main() {
 	<p>
 	Por convención, el nombre del paquete es el mismo que el último elemento de
 	la ruta de importación.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -152,7 +154,7 @@ import (
 func main() {
 	fmt.Println("Feliz día", math.Pi)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -166,7 +168,7 @@ func main() {
 	import "math"
 	</pre>
 	pero es común usar la forma factorizada para eliminar código innecesario.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -178,7 +180,7 @@ func main() {
 	fmt.Printf("Ahora tienes %g problemas.",
 		math.Nextafter(2, 3))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -194,7 +196,7 @@ func main() {
 	<p>
 	Ejecuta el código. Después sustituye <code>math.pi</code> por <code>math.Pi</code>
 	e intentalo de nuevo.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -205,7 +207,7 @@ import (
 func main() {
 	fmt.Println(math.pi)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -221,7 +223,7 @@ func main() {
 	vistazo a <a target="_blank"
 		href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">ésta
 		entrada</a> en inglés.)
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -233,7 +235,7 @@ func add(x int, y int) int {
 func main() {
 	fmt.Println(add(42, 13))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -247,7 +249,7 @@ func main() {
 	<p>
 	a
 	<pre>x, y int</pre>
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -259,7 +261,7 @@ func add(x, y int) int {
 func main() {
 	fmt.Println(add(42, 13))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -268,7 +270,7 @@ func main() {
 	Una función puede devolver varios resultados.
 	<p>
 	Esta función devuelve dos cadenas.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -281,7 +283,7 @@ func main() {
 	a, b := swap("hola", "mundo")
 	fmt.Println(a, b)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -292,7 +294,7 @@ func main() {
 	<p>
 	Si las variables de retorno tienen un nombre, una sentencia <code>return</code>
 	sin argumentos devuelve el valor actual de dichas variables.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -306,7 +308,7 @@ func split(sum int) (x, y int) {
 func main() {
 	fmt.Println(split(17))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -314,7 +316,7 @@ func main() {
 	<p>
 	La sentencia <code>var</code> declara una lista de variables;
 	como en la lista de argumentos de las funciones, el tipo se indica al final.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -325,7 +327,7 @@ var c, python, java bool
 func main() {
 	fmt.Println(x, y, z, c, python, java)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -335,7 +337,7 @@ func main() {
 	<p>
 	Si se inicializa una variable, el tipo puede omitirse;
 	la variable adoptará el tipo del valor con el que ha sido inicializada.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -346,7 +348,7 @@ var c, python, java = true, false, "no!"
 func main() {
 	fmt.Println(x, y, z, c, python, java)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -358,7 +360,7 @@ func main() {
 	<p>
 	(Fuera de una función, todas las declaraciones de variables comienzan con la
 	palabra clave <code>var</code> y el operando <code>:=</code> no está disponible.)
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -369,7 +371,7 @@ func main() {
 
 	fmt.Println(x, y, z, c, python, java)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -379,7 +381,7 @@ func main() {
 	<code>const</code>.
 	<p>
 	Las constantes pueden ser cadenas, booleanas, o numéricas.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -394,7 +396,7 @@ func main() {
 	const Truth = true
 	fmt.Println("¿Go mola?", Truth)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -406,7 +408,7 @@ func main() {
 	contexto en el que se declara.
 	<p>
 	Intenta también imprimir el valor <code>needInt(Big)</code>.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -426,7 +428,7 @@ func main() {
 	fmt.Println(needFloat(Small))
 	fmt.Println(needFloat(Big))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -438,7 +440,7 @@ func main() {
 	El bucle <code>for</code> básico es muy parecido al que se utiliza en
 	C o Java, salvo que los <code>( )</code> desaparecen (ni siquiera son
 	opcionales) y las llaves <code>{ }</code> son obligatorias.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -450,7 +452,7 @@ func main() {
 	}
 	fmt.Println(sum)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -458,7 +460,7 @@ func main() {
 	<p>
 	Como en C o Java, puedes dejar las instrucciones de inicialización
 	e incremento vacías.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -470,7 +472,7 @@ func main() {
 	}
 	fmt.Println(sum)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -479,7 +481,7 @@ func main() {
 	En este paso, puedes eliminar los puntos y coma <code>;</code>:
 	Un bucle <code>while</code> de C se transforma en un bucle <code>for</code>
 	en Go.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -491,21 +493,21 @@ func main() {
 	}
 	fmt.Println(sum)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
 	<h2>For</h2>
 	<p>
 	Si omites la condición del bucle, es un bucle infinito.
-<div>
+<pre class="source">
 package main
 
 func main() {
 	for ; ; {
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -513,14 +515,14 @@ func main() {
 	<p>
 	Y sin ninguna cláusula, los puntos y coma <code>;</code> pueden omitirse, de
 	forma que un bucle infinito se expresa de forma compacta.
-<div>
+<pre class="source">
 package main
 
 func main() {
 	for {
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -531,7 +533,7 @@ func main() {
 	y las llaves <code>{ }</code> son obligatorias.
 	<p>
 	(¿Te suena de algo?)
-<div>
+<pre class="source">
 package main
 
 import (
@@ -549,7 +551,7 @@ func sqrt(x float64) string {
 func main() {
 	fmt.Println(sqrt(2), sqrt(-4))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -563,7 +565,7 @@ func main() {
 	visibles en el ámbito del <code>if</code>.
 	<p>
 	(Intenta usar <code>v</code> en la última sentencia <code>return</code>.)
-<div>
+<pre class="source">
 package main
 
 import (
@@ -584,7 +586,7 @@ func main() {
 		pow(3, 3, 20),
 	)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -592,7 +594,7 @@ func main() {
 	<p>
 	Las variables declaradas dentro de la instrucción de inicialización de un
 	<code>if</code> son también visibles dentro de los bloques <code>else</code>.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -616,7 +618,7 @@ func main() {
 		pow(3, 3, 20),
 	)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -637,18 +639,18 @@ float32 float64
 
 complex64 complex128
 	</pre>
-<div>
+<pre class="source">
 package main
 
 import (
-	"cmath"
+	"math/cmplx"
 	"fmt"
 )
 
 var (
 	ToBe bool = false
 	MaxInt uint64 = 1<<64 - 1
-	z complex128 = cmath.Sqrt(-5+12i)
+	z complex128 = cmplx.Sqrt(-5+12i)
 )
 
 func main() {
@@ -657,7 +659,7 @@ func main() {
 	fmt.Printf(f, MaxInt, MaxInt)
 	fmt.Printf(f, z, z)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -666,7 +668,7 @@ func main() {
 	Una estructura (<code>struct</code>) es un registro de variables dentro de un mismo tipo.
 	<p>
 	(Y una declaración <code>type</code> declara un nuevo tipo de datos.)
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -679,7 +681,7 @@ type Vertex struct {
 func main() {
 	fmt.Println(Vertex{1, 2})
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -687,7 +689,7 @@ func main() {
 	<p>
 	Los campos de una estructura son accesibles mediante el operador
 	<code>.</code> (punto).
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -702,7 +704,7 @@ func main() {
 	v.X = 4
 	fmt.Println(v.X)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -713,7 +715,7 @@ func main() {
 	Los campos de las estructuras pueden accederse a través de un puntero a una
 	estructura.
 	La indirección del puntero es transparente al programador.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -729,7 +731,7 @@ func main() {
 	q.X = 1e9
 	fmt.Println(p)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -743,7 +745,7 @@ func main() {
 	<p>
 	El prefijo especial <code>&</code> construye un puntero a una estructura
 	literal.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -762,7 +764,7 @@ var (
 func main() {
 	fmt.Println(p, q, r, s)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -774,7 +776,7 @@ func main() {
 	<p>
 	o
 	<pre>t := new(T)</pre>
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -789,7 +791,7 @@ func main() {
 	v.X, v.Y = 11, 9
 	fmt.Println(v)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -801,7 +803,7 @@ func main() {
 	Los Maps deben crearse con la función <code>make</code> (nunca con
 	<code>new</code>) antes de su uso; el map <code>nil</code> está vacío y no
 	puede ser asignado.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -819,7 +821,7 @@ func main() {
 	}
 	fmt.Println(m["Bell Labs"])
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -827,7 +829,7 @@ func main() {
 	<p>
 	Los map literales son como las estructuras literales, pero las claves son
 	obligatorias.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -848,7 +850,7 @@ var m = map[string]Vertex{
 func main() {
 	fmt.Println(m)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -856,7 +858,7 @@ func main() {
 	<p>
 	Si el tipo superior es un nombre de un tipo, puedes omitirlo de los
 	elementos del literal.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -873,7 +875,7 @@ var m = map[string]Vertex{
 func main() {
 	fmt.Println(m)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -882,7 +884,7 @@ func main() {
 	Un slice apunta a un array de valores y posee un tamaño.
 	<p>
 	<code>[]T</code> es un slice con elementos de tipo <code>T</code>.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -896,7 +898,7 @@ func main() {
 			i, p[i])
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -916,7 +918,7 @@ func main() {
 	<pre>s[lo:lo+1]</pre>
 	<p>
 	tiene un elemento.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -932,7 +934,7 @@ func main() {
 	// Un valor de fin omitido implica len(s)
 	fmt.Println("p[4:] ==", p[4:])
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -958,7 +960,7 @@ b := make([]int, 0, 5)
 b = b[:cap(b)] // len(b)=5, cap(b)=5
 b = b[1:]      // len(b)=4, cap(b)=4
 	</pre>
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -978,7 +980,7 @@ func printSlice(s string, x []int) {
 	fmt.Printf("%s len=%d cap=%d %v\n",
 		s, len(x), cap(x), x)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -991,7 +993,7 @@ func printSlice(s string, x []int) {
 	<i>Para más detalle por favor mira el artículo (en inglés) 
 	"<a target="_blank" href="http://blog.golang.org/2011/01/go-slices-usage-and-internals.html">Go Slices: usage and internals</a>"
 	</i>
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1003,14 +1005,14 @@ func main() {
 		fmt.Println("¡nulo!")
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
 	<h2>Funciones</h2>
 	<p>
 	Las funciones también son valores.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1025,7 +1027,7 @@ func main() {
 
 	fmt.Println(hypot(3, 4))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1035,7 +1037,7 @@ func main() {
 	<p>
 	La función <code>adder</code> retorna una clausura (o función anónima).
 	Cada clausura está vinculada a su variable <code>sum</code> correspondiente.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1057,7 +1059,7 @@ func main() {
 		)
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1065,7 +1067,7 @@ func main() {
 	<p>
 	La forma <code>range</code> de un bucle <code>for</code> itera sobre
 	elementos de un slice o un map.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1077,7 +1079,7 @@ func main() {
 	    fmt.Printf("2**%d = %d\n", i, v)
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1087,7 +1089,7 @@ func main() {
 	<p>
 	Si sólo quieres el índice, descarta el 
 	&ldquo;<code>, value</code>&rdquo; integramente.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1101,7 +1103,7 @@ func main() {
 		fmt.Printf("%d\n", value)
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1114,7 +1116,7 @@ func main() {
 	<code>fallthrough</code>, que provocaría que siguiera ejecutando el
 	siguiente caso contemplado.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1135,7 +1137,7 @@ func main() {
 		fmt.Printf("%s.", os)
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1153,7 +1155,7 @@ case f():
 	<p>
 	no ejecuta <code>f</code> si <code>i==0</code>.)
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1162,8 +1164,8 @@ import (
 )
 
 func main() {
-	fmt.Println("¿Cuándo es Sábadoy?")
-	today := time.LocalTime().Weekday
+	fmt.Println("¿Cuándo es Sábado?")
+	today := time.Now().Weekday()
 	switch time.Saturday {
 	case today+0:
 		fmt.Println("Hoy.")
@@ -1175,7 +1177,7 @@ func main() {
 		fmt.Println("Demasiado tarde.")
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1183,7 +1185,7 @@ func main() {
 	<p>
 	Un switch sin condición es lo mismo que <code>switch true</code>.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1192,17 +1194,17 @@ import (
 )
 
 func main() {
-	t := time.LocalTime()
+	t := time.Now()
 	switch {
-	case t.Hour < 12:
+	case t.Hour() < 12:
 	    fmt.Println("¡Buenos días!")
-	case t.Hour < 17:
+	case t.Hour() < 17:
 	    fmt.Println("Buenas tardes.")
 	default:
 	    fmt.Println("Buenas noches.")
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1232,7 +1234,7 @@ func main() {
 	z := 0.0
 	</pre>
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1245,7 +1247,7 @@ func Sqrt(x float64) float64 {
 func main() {
 	fmt.Println(Sqrt(2))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1258,7 +1260,7 @@ func main() {
 	<p>
 	Puedes encontrar ayuda en  <a target="_blank" href="http://golang.org/pkg/strings/#Fields">strings.Fields</a>.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1272,7 +1274,7 @@ func ContadorPalabras(s string) map[string]int {
 func main() {
 	wc.Test(ContadorPalabras)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1291,7 +1293,7 @@ func main() {
 	(Necesitas usar un bucle para reservar memoria para cada
 	<code>[]uint8</code> dentro de la matriz <code>[][]uint8</code>.)
 
-<div>
+<pre class="source">
 package main
 
 import "<span class="appengineMode">tour</span><span class="localMode">code.google.com/p/go-tour</span>/pic"
@@ -1302,7 +1304,7 @@ func Pic(dx, dy int) [][]uint8 {
 func main() {
 	pic.Show(Pic)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1313,7 +1315,7 @@ func main() {
 	Implementa una función de <code>fibonacci</code> que devuelva una función (o
 	clausura) que devuelva los sucesivos números de fibonacci.
 
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1329,7 +1331,7 @@ func main() {
 		fmt.Println(f())
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1345,7 +1347,7 @@ func main() {
 	Busca la raíz cúbica de 2, para asegurarte que el algoritmo funciona. Existe
 	una función <a target="_blank" href="http://golang.org/pkg/cmath/#Pow">cmath.Pow</a>.
 
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1356,7 +1358,7 @@ func Cbrt(x complex128) complex128 {
 func main() {
 	fmt.Println(Cbrt(2))
 }
-</div>
+</pre>
 </div>
 
 
@@ -1374,7 +1376,7 @@ func main() {
 	<p>
 	El <i>receptor del método</i> aparece en su propia lista de argumentos entre
 	la palabra reservada <code>func</code> y el nombre del método.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1394,7 +1396,7 @@ func main() {
 	v := &Vertex{3, 4}
 	fmt.Println(v.Abs())
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1404,7 +1406,7 @@ func main() {
 	tu paquete, no sólamente para estructuras.
 	<p>
 	No puedes definir un método de un tipo de otro paquete o de un tipo básico.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1425,7 +1427,7 @@ func main() {
 	f := MyFloat(-math.Sqrt2)
 	fmt.Println(f.Abs())
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1454,7 +1456,7 @@ func main() {
 	<code>Abs</code> funciona de cualquier forma. Sólo lee <code>v</code>.
 	No importa si está leyendo el valor original (a través del puntero) o una
 	copia del valor.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1480,7 +1482,7 @@ func main() {
 	v.Scale(5)
 	fmt.Println(v, v.Abs())
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1490,7 +1492,7 @@ func main() {
 	<p>
 	Un tipo interface puede contener cualquier tipo que implemente esos métodos.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1530,7 +1532,7 @@ type Vertex struct {
 func (v *Vertex) Abs() float64 {
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1549,7 +1551,7 @@ func (v *Vertex) Abs() float64 {
 	<p>
 	<a target="_blank" href="http://golang.org/pkg/io/">El paquete io</a> define
 	<code>Reader</code> y <code>Writer</code>; Tú no tienes que hacerlo.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1578,7 +1580,7 @@ func main() {
 
 	fmt.Fprintf(w, "hello, writer\n")
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1599,7 +1601,7 @@ type error interface {
 	Las funciones de impresión del paquete <code>fmt</code> sabe cómo llamar al
 	método cuando se le pide imprimir un <code>error</code>.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1629,7 +1631,7 @@ func main() {
 		fmt.Println(err)
 	}
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1658,7 +1660,7 @@ type Handler interface {
 	<a target="_blank" href="http://golang.org/doc/install.html">Instalar
 	Go</a>.
 	</span>
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1678,7 +1680,7 @@ func main() {
 	var h Hello
 	http.ListenAndServe("localhost:4000",h)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1702,7 +1704,7 @@ type Image interface {
 	las ignoraremos usando las implementaciones predefinidas
 	<code>image.RGBA</code> y <code>image.RGBAModel</code>.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1715,7 +1717,7 @@ func main() {
 	fmt.Println(m.Bounds())
 	fmt.Println(m.At(0, 0).RGBA())
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1736,16 +1738,16 @@ type ErrNegativeSqrt float64</pre>
 func (e ErrNegativeSqrt) Error() string</pre>
 	<p>
 	de forma que <code>ErrNegativeSqrt(-2).String()</code> devuelva
-	<code>"no se puede calbular la raíz de un número negativo: -2"</code>.
+	<code>"no se puede calcular la raíz de un número negativo: -2"</code>.
 	<p>
-	<b>Nota:</b> una llamada a <code>fmt.Print(e)</code> dentro del método
+	<b>Nota:</b> una llamada a <code>fmt.Sprint(e)</code> dentro del método
 	<code>Error</code> hará que el programa entre en un bucle infinito.
 	Puedes evitarlo convirtiendo <code>e</code>:
-	<code>fmt.Print(float64(e))</code>. ¿Por qué?
+	<code>fmt.Sprint(float64(e))</code>. ¿Por qué?
 	<p>
 	Cambia tu función <code>Sqrt</code> para devolver un valor
 	<code>ErrNegativeSqrt</code> cuando se le pase un número negativo.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1760,7 +1762,7 @@ func main() {
 	fmt.Println(Sqrt(2))
 	fmt.Println(Sqrt(-2))
 }
-</div>
+</pre>
 </div>
 
 <div class="slide localMode">
@@ -1779,7 +1781,7 @@ type Struct struct {
 	Por ejemplo, deberías poder asignárselas usando:
 <pre>http.Handle("/string", String("I'm a frayed knot."))
 http.Handle("/struct", &Struct{"Hola", ":", "Gophers!"})</pre>
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1790,7 +1792,7 @@ func main() {
 	// Tu http.Handle llama aquí
 	http.ListenAndServe("localhost:4000", nil)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1808,13 +1810,13 @@ func main() {
 	como
 	<code>image.Rect(0, 0, w, h)</code>.
 	<p>
-	<code>ColorModel</code> debería devolver <code>image.RGBAColorModel</code>.
+	<code>ColorModel</code> debería devolver <code>color.RGBAModel</code>.
 	<p>
 	<code>At</code> debería devolver un color;
 	el valor <code>v</code> del último generador corresponde a 
 	<code>color.RGBA{v, v, 255, 255}</code>.
 
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1828,7 +1830,7 @@ func main() {
 	m := Image{}
 	pic.ShowImage(m)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1853,7 +1855,7 @@ func main() {
 	<p>
 	El tipo <code>rot13Reader</code> está completo. Implementa su método
 	<code>Read</code> para que implemente la interfaz <code>io.Reader</code>.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1868,11 +1870,12 @@ type rot13Reader struct {
 
 func main() {
 	s := strings.NewReader(
-		"Lbh penpxrq gur pbqr!") 
+		"¡Unf qrfpvsenqb ry póqvtb!")
+		//Lbh penpxrq gur pbqr! 
 	r := rot13Reader{s}
 	io.Copy(os.Stdout, &r)
 }
-</div>
+</pre>
 </div>
 
 <div class="toc">Concurrencia</div>
@@ -1900,7 +1903,7 @@ func main() {
 	target="_blank">sync</a></code> provee de llamadas útiles, aunque no las
 	necesitarás demasiado ya que Go provee otro tipo de primitivas. (Mira la
 	siguiente transparencia.)
-<div>
+<pre class="source">
 package main
 
 import (
@@ -1919,7 +1922,7 @@ func main() {
 	go say("mundo")
 	say("hola")
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -1947,7 +1950,7 @@ ch := make(chan int)
 	Por defecto, los envíos y recepciones se bloquean hasta que el otro extremo
 	está listo. Esto permite que las gorutinas se sincronicen sin cerrojos
 	explícitos o variables condicionales.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -1970,7 +1973,7 @@ func main() {
 
 	fmt.Println(x, y, x + y)
 }
-</div>
+</pre>
 </div>
 
 
@@ -1992,7 +1995,7 @@ ch := make(chan int, 100)
 	<p>
 	Modifica el ejemplo para llenar el buffer y observa qué ocurre.
 
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -2004,7 +2007,7 @@ func main() {
 	fmt.Println(<-c) 
 	fmt.Println(<-c)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -2028,7 +2031,7 @@ v, ok := &lt;-ch</pre>
 	<b>Otra nota:</b> Los canales no son como ficheros; normalmente no necesitas
 	cerrarlos. Cerrar un canal sólo es necesario cuando el receptor debe ser
 	avisado que no va a recibir más datos.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -2051,7 +2054,7 @@ func main() {
                 fmt.Println(i)
         }
 } 
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -2063,7 +2066,7 @@ func main() {
 	Un <code>select</code> se bloquea hasta que uno de sus casos puede ser
 	ejecutado, ejecutando el caso que ha satisfecho su condición. Elige uno al
 	azar si hay varios listos.
-<div>
+<pre class="source">
 package main
 
 import "fmt"
@@ -2092,7 +2095,7 @@ func main() {
  	}()
 	fibonacci(c, quit)
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -2118,7 +2121,7 @@ default:
 	<a target="_blank" href="http://golang.org/doc/install.html">instalar
 		Go</a> para ver este ejemplo en acción.
 	</span>
-<div>
+<pre class="source">
 package main
 
 import (
@@ -2142,7 +2145,7 @@ func main() {
                  }
         }
 }
-</div>
+</pre>
 </div>
 
 <div class="slide nocode">
@@ -2197,7 +2200,7 @@ go Walk(tree.New(1), ch)
 	<code>Same(tree.New(1), tree.New(1))</code> debería devolver true, y
 	<code>Same(tree.New(1), tree.New(2))</code> debería devolver false.
 
-<div>
+<pre class="source">
 package main
 
 import "<span class="appengineMode">tour</span><span class="localMode">code.google.com/p/go-tour</span>/tree"
@@ -2212,7 +2215,7 @@ func Same(t1, t2 *tree.Tree) bool
 
 func main() {
 }
-</div>
+</pre>
 </div>
 
 <div class="slide">
@@ -2223,7 +2226,7 @@ func main() {
 	<p>
 	Modifica la función <code>Crawl</code> para obtener las URLs en paralelo sin
 	obtener la misma URL dos veces.
-<div>
+<pre class="source">
 package main
 
 import (
@@ -2309,7 +2312,7 @@ var fetcher = &fakeFetcher{
 		},
 	},
 }
-</div>
+</pre>
 </div>
 
 <div class="slide nocode">
@@ -2358,6 +2361,31 @@ var fetcher = &fakeFetcher{
 </div>
 
 </div><!-- end slides -->
+
+<div id="workspace">
+	<div class="controls">
+		<div><a id="run" href="#run" title="Compile and Run">Run</a><a href="#more" id="more" title="Options">▼</a></div>
+		<ul class="more">
+			<li><a href="#" id="reset">Reset Slide</a></li>
+			<li><a href="#" id="format">Format Source Code</a></li>
+			<li><a href="#" id="kill" class="localMode">Kill Program</a></li>
+			<li><hr></li>
+			<li><a href="#" id="togglesyntax">Syntax-Highlighting: off</a></li>
+			<li><a href="#" id="togglelineno">Line-Numbers: on</a></li>
+		</ul>
+	</div>
+
+	<div id="workspace-top">
+		<div id="workspace-editor">
+			<textarea id="editor" spellcheck="false"></textarea>
+		</div>
+	</div>
+
+	<div id="workspace-bottom">
+		<div id="output"></div>
+	</div>
+</div>
+</div>
 
 </body>
 </html>
