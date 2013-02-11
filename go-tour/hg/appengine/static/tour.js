@@ -1,99 +1,194 @@
+/* Copyright 2012 The Go Authors.  All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
 (function() {
+"use strict";
 
 var slides, editor, $editor, $output;
 var slide = null;
 var slidenum = 0;
-var codebox = null;
+
+// manage translations
+function L(k) {
+	if (tr[k]) {
+		return tr[k];
+	} else {
+		console.log("translation missing for: "+k);
+		return "(no translation for "+k+")";
+	}
+}
 
 function init() {
-	if (tourMode == 'local') {
+	if (tourMode === 'local') {
 		$('.appengineMode').remove();
 	} else {
 		$('.localMode').remove();
 	}
 
-	var $toc = $("#toc").hide();
-	$("#tocbtn").click(function() {
-		if ($("#toc").is(":visible")) {
-			hideToc();
-		} else {
-			showToc();
-		}
-	});
+	var $tocdiv = $('<div id="toc" />').insertBefore('#slides').hide();
+	$tocdiv.append($('<h2>'+L('toc')+'</h2>'));
+	var $toc = $('<ol />').appendTo($tocdiv);
+	$("#tocbtn").click(toggleToc);
 
 	slides = $("div.slide");
 	slides.each(function(i, slide) {
 		var $s = $(slide).hide();
 
-		var $sdiv = $s.find("div");
-		if (!$s.hasClass("nocode") && $sdiv.length > 0) {
-			var $div = $sdiv.last();
-			$div.remove();
-			$s.data("code", $div.text().trim());
-		}
-
-		var $content = $('<div class="content"/>');
-		$content.html($s.html());
-		$s.empty().append($content);
-
-		var $h2 = $content.find("h2").first();
+		var $h2 = $s.find("h2").first();
 		var $nav;
 		if ($h2.length > 0) {
 			$("<div/>").addClass("clear").insertAfter($h2);
-			$nav = $("<div/>").addClass("nav")
+			$nav = $("<div/>").addClass("nav");
 			if (i > 0) {
-				$nav.append($("<button>").click(function() {
+				$nav.append($("<a>◀</a>").click(function() {
 					show(i-1);
-				}).text("ANTERIOR").addClass("prev"));
+					return false;
+				}).attr("href", "#"+(i)).attr("title", L('prev')));
+			} else {
+				$nav.append($("<span>◀</span>"));
 			}
 			if (i+1 < slides.length) {
-				$nav.append($("<button>").click(function() {
+				$nav.append($("<a>▶</a>").click(function() {
 					show(i+1);
-				}).text("SIGUIENTE").addClass("next"));
+					return false;
+				}).attr("href", "#"+(i+2)).attr("title", L('next')));
+			} else {
+				$nav.append($("<span>▶</span>"));
 			}
 			$nav.insertBefore($h2);
 
 			var thisI = i;
-			var $entry = $("<li/>").text($h2.text()).click(
-				function() { hideToc(); show(thisI); });
+			var $entry = $("<a />").text($h2.text()).click(function() {
+				show(thisI);
+			}).attr('href', '#'+(i+1));
 			$toc.append($entry);
+			$entry.wrap('<li />');
 
-		}
-		if ($s.hasClass("nocode")) {
-			$h2.addClass("nocode");
 		}
 	});
 
 	// set up playground editor
-	$editor = $('<div id="code"><button id="run">EJECUTAR</button><textarea/></div>');
-	$editor.insertBefore("#slides");
-	$output = $('<div id="output"/>').insertBefore("#slides");
-	editor = playground("#code textarea", "#output", "#run", null, null);
+	editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+		theme: "plain",
+		matchBrackets: true,
+		indentUnit: 8,
+		tabSize: 8,
+		indentWithTabs: true,
+		mode: "text/x-go",
+		lineNumbers: true,
+		extraKeys: {
+			"Shift-Enter": function() {
+				run();
+			}
+		}
+	});
+	$editor = $(editor.getWrapperElement()).attr('id', 'code');
+	$output = $('#output');
+
+	$('#more').click(function() {
+		$('.controls').toggleClass('expanded');
+		return false;
+	});
+	$('html').click(function() {
+		$('.controls').removeClass('expanded');
+	});
+
+	$('#run').click(function() {
+		run();
+		$('.controls').removeClass('expanded');
+		return false;
+	});
+
+	$('#reset').click(function() {
+		reset();
+		$('.controls').removeClass('expanded');
+		return false;
+	});
+
+	$('#kill').click(function() {
+		kill();
+		$('.controls').removeClass('expanded');
+		return false;
+	});
+
+	$('#format').click(function() {
+		format();
+		$('.controls').removeClass('expanded');
+		return false;
+	});
+
+	$('#togglesyntax').click(function() {
+		if (editor.getOption('theme') === 'default') {
+			editor.setOption('theme', 'plain');
+			$('#togglesyntax').text(L('syntax')+': '+L('off'));
+		} else {
+			editor.setOption('theme', 'default');
+			$('#togglesyntax').text(L('syntax')+': '+L('on'));
+		}
+		setcookie('theme', editor.getOption('theme'), 14);
+		$('.controls').removeClass('expanded');
+		return false;
+	});
+
+	$('#togglelineno').click(function() {
+		if (editor.getOption('lineNumbers')) {
+			editor.setOption('lineNumbers', false);
+			$('#togglelineno').text(L('lineno')+': '+L('off'));
+		} else {
+			editor.setOption('lineNumbers', true);
+			$('#togglelineno').text(L('lineno')+': '+L('on'));
+		}
+		setcookie('lineno', editor.getOption('lineNumbers'), 14);
+		$('.controls').removeClass('expanded');
+		return false;
+	});
+
+	if (getcookie('lineno') != ""+editor.getOption('lineNumbers')) {
+		$('#togglelineno').trigger('click');
+	} else {
+		$('#togglelineno').text(L('lineno')+': '+L('on'));
+	}
+
+	if (getcookie('theme') != ""+editor.getOption('theme')) {
+		$('#togglesyntax').trigger('click');
+	} else {
+		$('#togglesyntax').text(L('syntax')+': '+L('on'));
+	}
+
+	// set these according to lang.js
+	$('#run').text(L('run'));
+	$('#reset').text(L('reset'));
+	$('#format').text(L('format'));
+	$('#kill').text(L('kill'));
+	$('#tocbtn').attr('title', L('toc'));
 }
 
-function showToc() {
-	$("#toc").show();
-	$("#slides, #code, #output").hide();
-	$("#tocbtn").text("TRANSPARENCIAS");
-}
-
-function hideToc() {
-	$("#toc").hide();
-	$("#slides, #code, #output").show();
-	$("#tocbtn").text("ÍNDICE");
+function toggleToc() {
+	if ($('#toc').is(':visible')) {
+		show(slidenum);
+	} else {
+		$('#slides, #workspace, #slidenum').hide();
+		$('#toc').show();
+	}
+	return false;
 }
 
 function show(i) {
-	if(i < 0 || i >= slides.length)
+	if(i < 0 || i >= slides.length) {
 		return;
-		
+	}
+
 	// if a slide is already onscreen, hide it and store its code
-	if(slide != null) {
+	if(slide !== null) {
 		var $oldSlide = $(slide).hide();
 		if (!$oldSlide.hasClass("nocode")) {
-			$oldSlide.data("code", editor.getValue());
+			save(slidenum);
 		}
 	}
+
+	$('#toc').hide();
+	$('#slidenum, #slides').show();
 
 	// switch to new slide
 	slidenum = i;
@@ -103,33 +198,55 @@ function show(i) {
 
 	// load stored code, or hide code box
 	if ($s.hasClass("nocode")) {
-		$editor.hide();
-		$output.hide();
+		$('#workspace').hide();
 	} else {
-		$editor.show();
-		$output.show().empty();
-		editor.setValue($s.data("code"));
+		$('#workspace').show();
+		$output.empty();
+		editor.setValue(load(i) || $s.find('pre.source').text());
 		editor.focus();
 	}
 
 	// update url fragment
 	var url = location.href;
 	var j = url.indexOf("#");
-	if(j >= 0)
+	if(j >= 0) {
 		url = url.substr(0, j);
+	}
 	url += "#" + (slidenum+1).toString();
 	location.href = url;
 }
 
+function reset() {
+	editor.setValue($(slide).find('pre.source').text());
+	save(slidenum);
+}
+
+var pageData = {};
+
+function save(page) {
+	pageData[page] = editor.getValue();
+	return true;
+}
+
+function load(page) {
+	var data = pageData[page];
+	if (data) {
+		return data;
+	}
+	return false;
+}
+
 function urlSlideNumber(url) {
 	var i = url.indexOf("#");
-	if(i < 0)
+	if(i < 0) {
 		return 0;
-	var frag = unescape(url.substr(i+1));
+	}
+	var frag = decodeURIComponent(url.substr(i+1));
 	if(/^\d+$/.test(frag)) {
-		i = parseInt(frag);
-		if(i-1 < 0 || i-1 >= slides.length)
+		i = parseInt(frag, 10);
+		if(i-1 < 0 || i-1 >= slides.length) {
 			return 0;
+		}
 		return i-1;
 	}
 	return 0;
@@ -137,12 +254,12 @@ function urlSlideNumber(url) {
 
 function pageUpDown(event) {
 	var e = window.event || event;
-	if (e.keyCode == 33) { // page up
+	if (e.keyCode === 33) { // page up
 		e.preventDefault();
 		show(slidenum-1);
 		return false;
 	}
-	if (e.keyCode == 34) { // page down
+	if (e.keyCode === 34) { // page down
 		e.preventDefault();
 		show(slidenum+1);
 		return false;
@@ -152,9 +269,121 @@ function pageUpDown(event) {
 
 $(document).ready(function() {
 	init();
-	$('body').removeClass('loading');
-	show(urlSlideNumber(location.href));
+	if (location.href.indexOf('#') < 0) {
+		show(0);
+	} else {
+		show(urlSlideNumber(location.href));
+	}
 	document.onkeydown = pageUpDown;
 });
+
+$(window).unload(function() {
+	save(slidenum);
+});
+
+
+var seq = 0;
+
+function run() {
+	seq++;
+	var cur = seq;
+	$output.html('<div class="loading">'+L('waiting')+'</div>');
+	$.ajax("/compile", {
+		data: {"body": editor.getValue()},
+		type: "POST",
+		dataType: "json",
+		success: function(data) {
+			if (seq !== cur) {
+				return;
+			}
+			$output.empty();
+			if (data.compile_errors) {
+				$('<pre class="error" />').text(data.compile_errors).appendTo($output);
+				highlightErrors(data.compile_errors);
+			}
+			if (/^IMAGE:/.exec(data.output)) {
+				var img = $('<img />').attr('src',
+					'data:image/png;base64,' + data.output.substr(6));
+				$output.empty().append(img);
+				return;
+			}
+			$('<pre />').text(data.output).appendTo($output);
+		},
+		error: function() {
+			$output.empty();
+			$('<pre class="error" />').text(L('errcomm')).appendTo($output);
+		}
+	});
+}
+
+function format() {
+	seq++;
+	var cur = seq;
+	$output.html('<div class="loading">'+L('waiting')+'</div>');
+	$.ajax("/fmt", {
+		data: {"body": editor.getValue()},
+		type: "POST",
+		dataType: "json",
+		success: function(data) {
+			if (seq !== cur) {
+				return;
+			}
+			$output.empty();
+			if (data.Error) {
+				$('<pre class="error" />').text(data.Error).appendTo($output);
+				highlightErrors(data.Error);
+			} else {
+				editor.setValue(data.Body);
+			}
+		},
+		error: function() {
+			$('<pre class="error" />').text(L('errcomm')).appendTo($output);
+		}
+	});
+}
+
+function kill() {
+	$.ajax("/kill");
+}
+
+function highlightErrors(text) {
+	if (!editor || !text) {
+		return;
+	}
+	var errorRe = /[a-z0-9]+\.go:([0-9]+):/g;
+	var result;
+	while ((result = errorRe.exec(text)) !== null) {
+		var line = result[1]*1-1;
+		editor.setLineClass(line, null, 'errLine');
+	}
+	editor.setOption('onChange', function() {
+		for (var i = 0; i < editor.lineCount(); i++) {
+			editor.setLineClass(i, null, null);
+		}
+		editor.setOption('onChange', null);
+	});
+}
+
+function getcookie(name) {
+	if (document.cookie.length > 0) {
+		var start = document.cookie.indexOf(name + '=');
+		if (start >= 0) {
+			start += name.length + 1;
+			var end = document.cookie.indexOf(';', start);
+			if (end < 0) {
+				end = document.cookie.length;
+			}
+			return decodeURIComponent(document.cookie.substring(start, end));
+		}
+	}
+	return null;
+}
+
+function setcookie(name, value, expire) {
+	var expdate = new Date();
+	expdate.setDate(expdate.getDate() + expire);
+	document.cookie = name + '=' + encodeURIComponent(value) +
+		((expire === undefined) ? '' : ';expires=' + expdate.toGMTString());
+}
 
 }());
