@@ -1,16 +1,7 @@
-This is the App Engine version of the Go Playground.
+This is Go Tour, an introduction to the Go programming language.
 
-To deploy: (instructions relative to the appengine directory)
+Unless otherwise noted, the go-tour source files are distributed
+under the BSD-style license found in the LICENSE file.
 
-1. Make a copy of the static directory.
-	
-	cp -r ../static .
-
-2. Edit static/mode.js to set the tourMode variable to "appengine".
-
-3. Edit app.yaml to set the application name to something you have access to.
-
-4. Use appcfg.py to deploy it.
-
-	/path/to/sdk/appcfg.py update .
-
+Contributions should follow the same procedure as for the Go project:
+http://golang.org/doc/contribute.html
