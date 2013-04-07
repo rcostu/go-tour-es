@@ -8,6 +8,8 @@ var tr = {
 	"format": "Dar formato al código",
 	"kill": "Acabar ejecución",
 	"run": "Ejecutar",
+	"compile": "Compilar y ejecutar",
+	"more": "Opciones",
 	"toc": "Índice",
 	"prev": "Anterior",
 	"next": "Siguiente",
