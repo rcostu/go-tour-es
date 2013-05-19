@@ -313,7 +313,7 @@ Una estructura literal denota una nueva instancia de la estructura que muestra l
 
 Puedes mostrar sólo un subconjunto de los campos utilizando la sintaxis `Name:`. (Y el orden de los campos nombrados es irrelevante.)
 
-El prefijo especial `&` construye un puntero a una estructura literal.
+El prefijo especial `&` construye un puntero al espacio donde la nueva estructura se aloja.
 
 .play prog/struct-literals.go
 
