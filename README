@@ -1,15 +1,7 @@
-Este proyecto trata de traducir toda la documentación oficial de Go
-(http://golang.org) al español, para formar una comunidad de desarrollo en dicho
-lenguaje, que incluirá un manual.
+This is Go Tour, an introduction to the Go programming language.
 
-El go-tour está traducido. Si alguien hace un fork pra colaborar en la
-traducción se agradece que modifique únicamente el archivo
-go-tour/hg/appengine/static/index.html.
+Unless otherwise noted, the go-tour source files are distributed
+under the BSD-style license found in the LICENSE file.
 
-Se está traduciendo la documentación exitente en doc/. Se está realizando
-  en orden y el último fichero modificado es docs.html
-
-Gracias a hambit por su colaboración y trabajo en la traducción.
-Gracias a fermuch por su colaboración corrigiendo errores tipográficos.
-Gracias a zorion por su colaboración manteniendo el tour actualizado y realizar
-la traducción al catalán.
+Contributions should follow the same procedure as for the Go project:
+http://golang.org/doc/contribute.html
