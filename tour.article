@@ -57,21 +57,25 @@ El tour está disponible en otros idiomas:
 Haz click en "siguiente" o pulsa PageDown para continuar.
 
 #Deleted-slide from the tour.golang.org [EN]
-* Go offline
+#appengine: * Go offline
 
-Este tour está disponible también como un programa independiente que puedes usar sin acceder a internet.
+#appengine: Este tour está disponible también como un programa independiente que puedes usar sin acceder a internet.
 
-Este programa es rápido, ya que compila y ejecuta el código de los ejemplos en tu propio ordenador. También incluye ejercicos adicionales que no se encuentran disponibles en la versión online.
+#appengine: Este programa es rápido, ya que compila y ejecuta el código de los ejemplos en tu propio ordenador. También incluye ejercicos adicionales que no se encuentran disponibles en la versión online.
 
-Para ejecutar el tour localmente primero debes [[http://golang.org/doc/install.html][instalar Go]], a continuación [[http://golang.org/cmd/go/][go get]] para instalar [[http://code.google.com/p/go-tour/][gotour]]:
+#appengine: Para ejecutar el tour localmente primero debes [[http://golang.org/doc/install.html][instalar Go]], a continuación [[http://golang.org/cmd/go/][go get]] para instalar [[http://code.google.com/p/go-tour/][gotour]] (en inglés):
 
-	go get code.google.com/p/go-tour/gotour
+#appengine: 	go get code.google.com/p/go-tour/gotour
 
-y ejecuta el fichero `gotour`.
+#appengine: o si lo prefieres en castellano:
 
-De lo contrario, haz click en "siguiente" o presiona la tecla PageDown para continuar.
+#appengine: 	go get github.com/rcostu/go-tour-es/gotoures
 
-_(Puedes_volver_a_estas_instrucciones_en_cualquier_momento_haciendo_click_en_"índice".)_
+#appengine: y ejecuta el fichero `gotour` (o `gotoures` en castellano).
+
+#appengine: De lo contrario, haz click en "siguiente" o presiona la tecla PageDown para continuar.
+
+#appengine: _(Puedes_volver_a_estas_instrucciones_en_cualquier_momento_haciendo_click_en_"índice".)_
 
 * Paquetes
 
