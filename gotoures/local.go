@@ -30,7 +30,7 @@ import (
 )
 
 const (
-	basePkg    = "code.google.com/p/go-tour/"
+	basePkg    = "github.com/rcostu/go-tour-es/"
 	socketPath = "/socket"
 )
 
