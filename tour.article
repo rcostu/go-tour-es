@@ -119,9 +119,9 @@ Una función puede tener cero o más argumentos.
 
 En este ejemplo, `add` posee dos parámetros de tipo `int`.
 
-Observa que el tipo de indica _después_ del nombre de la variable.
+Observa que el tipo se indica _después_ del nombre de la variable.
 
-(Para más información acerca de por qué los tipos se miestran así, échale un vistazo a [[http://golang.org/doc/articles/gos_declaration_syntax.html][ésta entrada]] en inglés.)
+(Para más información acerca de por qué los tipos se muestran así, échale un vistazo a [[http://golang.org/doc/articles/gos_declaration_syntax.html][ésta entrada]] en inglés.)
 
 .play prog/functions.go
 
