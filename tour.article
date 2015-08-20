@@ -92,7 +92,7 @@ Por convención, el nombre del paquete es el mismo que el último elemento de la
 
 * Importación
 
-Éste código agrupa las importaciones entre paréntesis de forma "factorizada". Tambien puedes realizar multiples importaciones de la siguiente forma:
+Este código agrupa las importaciones entre paréntesis de forma "factorizada". Tambien puedes realizar múltiples importaciones de la siguiente forma:
 
 	import "fmt"
 	import "math"
@@ -109,7 +109,7 @@ En Go, un identificador es exportado si empieza por una mayúscula.
 
 `Foo` es un identificador exportado, al igual que `FOO`. El identificador `foo` no es exportado.
 
-Ejecuta el código. Después sustituye `math.pi` por `math.Pi` e intentalo de nuevo.
+Ejecuta el código. Después sustituye `math.pi` por `math.Pi` e inténtalo de nuevo.
 
 .play prog/exported-names.go
 
@@ -316,7 +316,7 @@ La indirección del puntero es transparente al programador.
 
 Una estructura literal denota una nueva instancia de la estructura que muestra los valores de sus campos.
 
-Puedes mostrar sólo un subconjunto de los campos utilizando la sintaxis `Name:`. (Y el orden de los campos nombrados es irrelevante.)
+Puedes mostrar solo un subconjunto de los campos utilizando la sintaxis `Name:`. (Y el orden de los campos nombrados es irrelevante.)
 
 El prefijo especial `&` construye un puntero al espacio donde la nueva estructura se aloja.
 
@@ -566,7 +566,7 @@ Los métodos pueden asociarse con un tipo o un puntero a un tipo declarado.
 
 Acabamos de ver dos métodos `Abs`. Uno para el puntero a un vértice`*Vertex` y otro para el tipo `MyFloat`.
 
-Hay dos razones para usar un receptor de tipo puntero. Primero, para evitar copiar el valor en cada llamada al método (más eficiente si el tipo usado es una estructura grande). Segundo, de tal forma que el método pueda modificar el valor a la que apunta el receptor. 
+Hay dos razones para usar un receptor de tipo puntero. Primero, para evitar copiar el valor en cada llamada al método (más eficiente si el tipo usado es una estructura grande). Segundo, de tal forma que el método pueda modificar el valor a la que apunta el receptor.
 
 Intenta cambiar las declaraciones de los métodos `Abs` y `Scale` para usar `Vertex` como el receptor, en lugar de `*Vertex`.
 
@@ -621,7 +621,7 @@ Crea un nuevo tipo
 
 	type ErrNegativeSqrt float64
 
-y hazlo del tipo `error` implementando un método 
+y hazlo del tipo `error` implementando un método
 
 	func (e ErrNegativeSqrt) Error() string
 
@@ -640,7 +640,7 @@ Cambia tu función `Sqrt` para devolver un valor `ErrNegativeSqrt` cuando se le 
 [[http://golang.org/pkg/http/][El paquete http]] sirve peticiones HTTP usando cualquier valor que implemente `http.Handler`:
 
 	package http
-	
+
 	type Handler interface {
 	ServeHTTP(
 		w ResponseWriter, r *Request)
@@ -659,7 +659,7 @@ Visita [[http://localhost:4000/][http://localhost:4000/]] para ver la bienvenida
 Implementa los siguientes tipos y define métodos ServeHTTP para ellos. Asígnalos distintas rutas de tu servidor web.
 
 	type String string
-	
+
 	type Struct struct {
 		Greeting string
 		Punct    string
@@ -678,7 +678,7 @@ Por ejemplo, deberías poder asignárselas usando:
 [[http://golang.org/pkg/image/#Image][El paquete image]] define la interfaz `Image`:
 
 	package image
-	
+
 	type Image interface {
 		ColorModel() color.Model
 		Bounds() Rectangle
@@ -863,7 +863,7 @@ Modifica la función `Crawl` para obtener las URLs en paralelo sin obtener la mi
 
 #appengine: Una vez que lo tengas ejecutando en tu ordenador, la
 la
-[[http://golang.org/doc/][Documentación de Go]] es un buen lugar para 
+[[http://golang.org/doc/][Documentación de Go]] es un buen lugar para
 #appengine: continuar
 empezar.
 Contiene referencias a tutoriales, videos, y mucho más.
